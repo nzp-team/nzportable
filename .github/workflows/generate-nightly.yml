@@ -1,0 +1,117 @@
+name: Generate NZPortable Nightlies.
+on:
+  schedule:
+  - cron: 0 7 * * *
+
+jobs:
+  Generate-Nightly:
+    runs-on: ubuntu-latest
+    container:
+      image: sharkwouter/pspdev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get apt ready
+        run: |
+          apt update
+          apt install -y zip unzip wget curl git jq
+      - name: Assemble Archives
+        working-directory: ./
+        run: |
+          ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Build Date
+        id: date
+        run: echo "::set-output name=date::$(cat release_version.txt)"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}
+          id: attempt-1
+          continue-on-error: true
+          tag_name: nightly
+          body_path: changes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./out/nzportable-linux32.zip
+            ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarmhf.zip
+            ./out/nzportable-psp-32mb.zip
+            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-switch.zip
+            ./out/nzportable-win32.zip
+            ./out/nzportable-win64.zip
+      - name: Release attempt 2
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}
+          id: attempt-2
+          if: steps.attempt-1.outcome == 'failure'
+          continue-on-error: true
+          tag_name: nightly
+          body_path: changes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./out/nzportable-linux32.zip
+            ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarmhf.zip
+            ./out/nzportable-psp-32mb.zip
+            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-switch.zip
+            ./out/nzportable-win32.zip
+            ./out/nzportable-win64.zip
+      - name: Release attempt 3
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}
+          id: attempt-3
+          if: steps.attempt-2.outcome == 'failure'
+          continue-on-error: true
+          tag_name: nightly
+          body_path: changes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./out/nzportable-linux32.zip
+            ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarmhf.zip
+            ./out/nzportable-psp-32mb.zip
+            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-switch.zip
+            ./out/nzportable-win32.zip
+            ./out/nzportable-win64.zip
+      - name: Release attempt 4
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}
+          id: attempt-4
+          if: steps.attempt-3.outcome == 'failure'
+          continue-on-error: true
+          tag_name: nightly
+          body_path: changes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./out/nzportable-linux32.zip
+            ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarmhf.zip
+            ./out/nzportable-psp-32mb.zip
+            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-switch.zip
+            ./out/nzportable-win32.zip
+            ./out/nzportable-win64.zip
+      - name: Release attempt 5
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.date.outputs.date }}
+          id: attempt-5
+          if: steps.attempt-4.outcome == 'failure'
+          continue-on-error: true
+          tag_name: nightly
+          body_path: changes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./out/nzportable-linux32.zip
+            ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarmhf.zip
+            ./out/nzportable-psp-32mb.zip
+            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-switch.zip
+            ./out/nzportable-win32.zip
+            ./out/nzportable-win64.zip
