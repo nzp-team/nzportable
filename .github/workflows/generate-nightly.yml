@@ -25,9 +25,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         continue-on-error: true
+        id: attempt-1
         with:
           name: ${{ steps.date.outputs.date }}
-          id: attempt-1
           tag_name: nightly
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -43,10 +43,10 @@ jobs:
       - name: Release attempt 2
         uses: softprops/action-gh-release@v1
         continue-on-error: true
+        id: attempt-2
+        if: steps.attempt-1.outcome == 'failure'
         with:
           name: ${{ steps.date.outputs.date }}
-          id: attempt-2
-          if: steps.attempt-1.outcome == 'failure'
           tag_name: nightly
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -62,10 +62,10 @@ jobs:
       - name: Release attempt 3
         uses: softprops/action-gh-release@v1
         continue-on-error: true
+        id: attempt-3
+        if: steps.attempt-2.outcome == 'failure'
         with:
           name: ${{ steps.date.outputs.date }}
-          id: attempt-3
-          if: steps.attempt-2.outcome == 'failure'
           tag_name: nightly
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -81,10 +81,10 @@ jobs:
       - name: Release attempt 4
         uses: softprops/action-gh-release@v1
         continue-on-error: true
+        id: attempt-4
+        if: steps.attempt-3.outcome == 'failure'
         with:
           name: ${{ steps.date.outputs.date }}
-          id: attempt-4
-          if: steps.attempt-3.outcome == 'failure'
           tag_name: nightly
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -99,11 +99,11 @@ jobs:
             ./out/nzportable-win64.zip
       - name: Release attempt 5
         uses: softprops/action-gh-release@v1
-        continue-on-error: true
+        continue-on-error: false
+        id: attempt-5
+        if: steps.attempt-4.outcome == 'failure'
         with:
           name: ${{ steps.date.outputs.date }}
-          id: attempt-5
-          if: steps.attempt-4.outcome == 'failure'
           tag_name: nightly
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
