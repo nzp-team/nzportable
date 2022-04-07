@@ -38,6 +38,7 @@ jobs:
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
             ./out/nzportable-switch.zip
+            ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
       - name: Release attempt 2
@@ -57,6 +58,7 @@ jobs:
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
             ./out/nzportable-switch.zip
+            ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
       - name: Release attempt 3
@@ -76,6 +78,7 @@ jobs:
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
             ./out/nzportable-switch.zip
+            ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
       - name: Release attempt 4
@@ -95,6 +98,7 @@ jobs:
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
             ./out/nzportable-switch.zip
+            ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
       - name: Release attempt 5
@@ -114,5 +118,6 @@ jobs:
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
             ./out/nzportable-switch.zip
+            ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
