@@ -16,6 +16,7 @@ jobs:
           apt update
           apt install -y zip unzip wget curl git jq
       - name: Assemble Archives
+        continue-on-error: false
         working-directory: ./
         run: |
           ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}

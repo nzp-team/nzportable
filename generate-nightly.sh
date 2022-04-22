@@ -56,7 +56,8 @@ fi
 
 # Do we proceed?
 if [ "$PUSH_NIGHTLY" -ne "1" ]; then
-    exit
+    echo "Nothing to do."
+    exit 1
 fi
 
 #
