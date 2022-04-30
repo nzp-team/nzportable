@@ -35,6 +35,7 @@ jobs:
           files: |
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
@@ -55,6 +56,7 @@ jobs:
           files: |
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
@@ -75,6 +77,7 @@ jobs:
           files: |
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
@@ -95,6 +98,7 @@ jobs:
           files: |
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip
@@ -115,6 +119,7 @@ jobs:
           files: |
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
+            ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-psp-32mb.zip
             ./out/nzportable-psp-64mb.zip

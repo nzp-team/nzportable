@@ -90,6 +90,7 @@ if [ "$SPASM_UPDATE" -eq "1" ]; then
     printf "* Quakespasm (PS VITA/Nintendo Switch Engine)\n\n" >> changes.txt
 fi
 
+printf "\n " >> changes.txt
 printf "Installation Instructions:\n" >> changes.txt
 printf "* PC: Extract .ZIP archive into a folder of your choice. Linux users may need" >> changes.txt
 printf " to mark as executable with \`chmod\`\n" >> changes.txt
@@ -115,6 +116,7 @@ wget -nc https://github.com/nzp-team/dquakeplus/releases/download/bleeding-edge/
 # FTEQW
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux32.zip
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux64.zip
+wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_arm64.zip
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_armhf.zip
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win32.zip
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win64.zip
@@ -143,6 +145,7 @@ unzip -q ../pc-nzp-assets.zip -d assets/
 unzip -q ../pc-nzp-qc.zip -d assets/nzp/
 unzip -q ../pc-nzp-linux32.zip -d $PWD
 unzip -q ../pc-nzp-linux64.zip -d $PWD
+unzip -q ../pc-nzp-linux_arm64.zip -d $PWD
 unzip -q ../pc-nzp-linux_armhf.zip -d $PWD
 unzip -q ../pc-nzp-win32.zip -d $PWD
 unzip -q ../pc-nzp-win64.zip -d $PWD
@@ -159,6 +162,12 @@ zip -q -r ../nzportable-linux64.zip ./*
 rm nzportable64
 cd ../
 mv nzportable-linux64.zip ../out/
+mv nzportablearm64 assets/
+cd assets
+zip -q -r ../nzportable-linuxarm64.zip ./*
+rm nzportablearm64
+cd ../
+mv nzportable-linuxarm64.zip ../out/
 mv nzportablearmhf assets/
 cd assets
 zip -q -r ../nzportable-linuxarmhf.zip ./*
