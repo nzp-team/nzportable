@@ -152,6 +152,7 @@ unzip -q ../pc-nzp-linux_armhf.zip -d $PWD
 unzip -q ../pc-nzp-win32.zip -d $PWD
 unzip -q ../pc-nzp-win64.zip -d $PWD
 echo $BUILD_STRING > assets/nzp/version.txt
+cp assets/nzp/version.txt ../out/build-version.txt
 mv nzportable32 assets/
 cd assets
 zip -q -r ../nzportable-linux32.zip ./*

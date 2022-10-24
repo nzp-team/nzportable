@@ -43,6 +43,7 @@ jobs:
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
+            ./out/build-version.txt
       - name: Release attempt 2
         uses: softprops/action-gh-release@v1
         continue-on-error: true
@@ -64,6 +65,7 @@ jobs:
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
+            ./out/build-version.txt
       - name: Release attempt 3
         uses: softprops/action-gh-release@v1
         continue-on-error: true
@@ -85,6 +87,7 @@ jobs:
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
+            ./out/build-version.txt
       - name: Release attempt 4
         uses: softprops/action-gh-release@v1
         continue-on-error: true
@@ -106,6 +109,7 @@ jobs:
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
+            ./out/build-version.txt
       - name: Release attempt 5
         uses: softprops/action-gh-release@v1
         continue-on-error: false
@@ -127,3 +131,4 @@ jobs:
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
+            ./out/build-version.txt
