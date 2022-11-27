@@ -11,6 +11,7 @@ FTEQW_UPDATE="0"
 QUAKC_UPDATE="0"
 DQUAK_UPDATE="0"
 SPASM_UPDATE="0"
+GLQUA_UPDATE="0"
 
 # The time of execution in epoch
 CURRENT_TIME=$(date "+%s")
@@ -27,6 +28,7 @@ FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://a
 QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakec/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/dquakeplus/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 SPASM_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
+GLQUA_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/glquake/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 
 # Now check through them all and see if any have been updated recently
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
@@ -52,6 +54,11 @@ fi
 if [ "$SPASM_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
     SPASM_UPDATE="1"
+fi
+
+if [ "$GLQUA_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
+    PUSH_NIGHTLY="1"
+    GLQUA_UPDATE="1"
 fi
 
 # Do we proceed?
@@ -90,6 +97,10 @@ if [ "$SPASM_UPDATE" -eq "1" ]; then
     printf "* Quakespasm (PS VITA/Nintendo Switch Engine)\n\n" >> changes.txt
 fi
 
+if [ "$GLQUA_UPDATE" -eq "1" ]; then
+    printf "* glQuake (Nintendo 3DS Engine)\n\n" >> changes.txt
+fi
+
 printf "\n " >> changes.txt
 printf "Installation Instructions:\n" >> changes.txt
 printf "* PC: Extract .ZIP archive into a folder of your choice. Linux users may need" >> changes.txt
@@ -99,6 +110,7 @@ printf "* Nintendo Switch: Extract the `nzportable` folder inside the .ZIP archi
 printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra memory," >> changes.txt
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
 printf "* PS VITA: Extract the .ZIP archive into ux0: and install \`nzp.vpk\`." >> changes.txt
+printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`" >> changes.txt
 printf "\n " >> changes.txt
 printf "You can also play the WebGL version at https://nzp-team.github.io/latest/game.html" >> changes.txt
 
@@ -111,6 +123,7 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/nx-nzp-asse
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/pc-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/psp-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/vita-nzp-assets.zip
+wget -nc https://github.com/nzp-team/assets/releases/download/newest/3ds-nzp-assets.zip
 
 # dQuake
 wget -nc https://github.com/nzp-team/dquakeplus/releases/download/bleeding-edge/psp-nzp-eboots.zip
@@ -128,13 +141,17 @@ wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/nx-n
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/pc-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/psp-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/vita-nzp-qc.zip
+wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/ctr-nzp-qc.zip
 
 # Quakespasm
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
 
+# glQuake
+wget -nc https://github.com/nzp-team/glquake/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
+
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -247,4 +264,19 @@ cd assets/
 zip -q -r ../nzportable-vita.zip ./*
 cd ../
 mv nzportable-vita.zip ../out/
+cd ../
+
+#
+# Assemble 3DS Build
+#
+cd 3ds-assembly
+mkdir assets
+unzip -q ../3ds-nzp-assets.zip -d assets/
+unzip -q ../ctr-nzp-qc.zip -d assets/nzportable/nzp
+unzip -q ../ctr-nzp-3dsx.zip -d assets/nzportable/
+echo $BUILD_STRING > assets/nzportable/nzp/version.txt
+cd assets/
+zip -q -r ../nzportable-3ds.zip ./*
+cd ../
+mv nzportble-3ds.zip ../out/
 cd ../
