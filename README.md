@@ -35,8 +35,8 @@ Oh yeah, we have lots of bugs, too.
 * Jukki: Coding
 * Biodude: Sounds
 * Dr_Mabuse1981: Coding
-* Naievil: Coding, NX Port
-* MotoLegacy: Coding, GFX, Music
+* Naievil: Coding, NX Port, 3DS Port
+* MotoLegacy: Coding, GFX, Music, 3DS Port
 * Derped_Crusader: Models, GFX
 * Rinnegatamante: VITA Port
 
@@ -46,6 +46,9 @@ Special Thanks:
 * Crow_Bar: dQuake
 * st1x51: dQuakePlus
 * fgsfdsfgs: QuakespasmNX
+* masterfeizz: ctrQuake
+* Diabolikal: ctr/QS HLBSP implementation
+* Havok
 * Azenn: GFX help
 * Marty P.: Music help
 * BCDeshiG: Heavy bug testing
