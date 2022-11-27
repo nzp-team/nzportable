@@ -33,6 +33,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
@@ -55,6 +56,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
@@ -77,6 +79,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
@@ -99,6 +102,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
@@ -121,6 +125,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
