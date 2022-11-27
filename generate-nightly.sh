@@ -278,5 +278,5 @@ echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 cd assets/
 zip -q -r ../nzportable-3ds.zip ./*
 cd ../
-mv nzportble-3ds.zip ../out/
+mv nzportable-3ds.zip ../out/
 cd ../
