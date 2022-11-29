@@ -23,6 +23,13 @@ jobs:
       - name: Get Build Date
         id: date
         run: echo "::set-output name=date::$(cat release_version.txt)"
+      - name: Delete Old Release
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          delete_release: true
+          tag_name: nightly
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v1
         continue-on-error: true
