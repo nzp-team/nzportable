@@ -23,117 +23,135 @@ jobs:
       - name: Get Build Date
         id: date
         run: echo "::set-output name=date::$(cat release_version.txt)"
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        continue-on-error: true
-        id: attempt-1
+      - name: Delete Old Release
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
         with:
-          name: ${{ steps.date.outputs.date }}
+          delete_release: true
+          tag_name: nightly
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_name: ${{ steps.date.outputs.date }}
           tag_name: nightly
           body_path: changes.txt
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ./out/nzportable-3ds.zip
-            ./out/nzportable-linux32.zip
-            ./out/nzportable-linux64.zip
-            ./out/nzportable-linuxarm64.zip
-            ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
-            ./out/nzportable-switch.zip
-            ./out/nzportable-vita.zip
-            ./out/nzportable-win32.zip
-            ./out/nzportable-win64.zip
-            ./out/build-version.txt
-      - name: Release attempt 2
-        uses: softprops/action-gh-release@v1
-        continue-on-error: true
-        id: attempt-2
-        if: steps.attempt-1.outcome == 'failure'
+          draft: true
+          prerelease: false
+      - name: Upload 3DS Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ steps.date.outputs.date }}
-          tag_name: nightly
-          body_path: changes.txt
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ./out/nzportable-3ds.zip
-            ./out/nzportable-linux32.zip
-            ./out/nzportable-linux64.zip
-            ./out/nzportable-linuxarm64.zip
-            ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
-            ./out/nzportable-switch.zip
-            ./out/nzportable-vita.zip
-            ./out/nzportable-win32.zip
-            ./out/nzportable-win64.zip
-            ./out/build-version.txt
-      - name: Release attempt 3
-        uses: softprops/action-gh-release@v1
-        continue-on-error: true
-        id: attempt-3
-        if: steps.attempt-2.outcome == 'failure'
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-3ds.zip
+          asset_name: nzportable-3ds.zip
+          asset_content_type: application/zip
+      - name: Upload Linux32 Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ steps.date.outputs.date }}
-          tag_name: nightly
-          body_path: changes.txt
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ./out/nzportable-3ds.zip
-            ./out/nzportable-linux32.zip
-            ./out/nzportable-linux64.zip
-            ./out/nzportable-linuxarm64.zip
-            ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
-            ./out/nzportable-switch.zip
-            ./out/nzportable-vita.zip
-            ./out/nzportable-win32.zip
-            ./out/nzportable-win64.zip
-            ./out/build-version.txt
-      - name: Release attempt 4
-        uses: softprops/action-gh-release@v1
-        continue-on-error: true
-        id: attempt-4
-        if: steps.attempt-3.outcome == 'failure'
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-linux32.zip
+          asset_name: nzportable-linux32.zip
+          asset_content_type: application/zip
+      - name: Upload Linux64 Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ steps.date.outputs.date }}
-          tag_name: nightly
-          body_path: changes.txt
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ./out/nzportable-3ds.zip
-            ./out/nzportable-linux32.zip
-            ./out/nzportable-linux64.zip
-            ./out/nzportable-linuxarm64.zip
-            ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
-            ./out/nzportable-switch.zip
-            ./out/nzportable-vita.zip
-            ./out/nzportable-win32.zip
-            ./out/nzportable-win64.zip
-            ./out/build-version.txt
-      - name: Release attempt 5
-        uses: softprops/action-gh-release@v1
-        continue-on-error: false
-        id: attempt-5
-        if: steps.attempt-4.outcome == 'failure'
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-linux64.zip
+          asset_name: nzportable-linux64.zip
+          asset_content_type: application/zip
+      - name: Upload LinuxARM64 Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ steps.date.outputs.date }}
-          tag_name: nightly
-          body_path: changes.txt
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: |
-            ./out/nzportable-3ds.zip
-            ./out/nzportable-linux32.zip
-            ./out/nzportable-linux64.zip
-            ./out/nzportable-linuxarm64.zip
-            ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
-            ./out/nzportable-switch.zip
-            ./out/nzportable-vita.zip
-            ./out/nzportable-win32.zip
-            ./out/nzportable-win64.zip
-            ./out/build-version.txt
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-linuxarm64.zip
+          asset_name: nzportable-linuxarm64.zip
+          asset_content_type: application/zip
+      - name: Upload LinuxARMHF Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-linuxarmhf.zip
+          asset_name: nzportable-linuxarmhf.zip
+          asset_content_type: application/zip
+      - name: Upload PSP 32MB Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-psp-32mb.zip
+          asset_name: nzportable-psp-32mb.zip
+          asset_content_type: application/zip
+      - name: Upload PSP 64MB Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-psp-64mb.zip
+          asset_name: nzportable-psp-64mb.zip
+          asset_content_type: application/zip
+      - name: Upload NX Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-switch.zip
+          asset_name: nzportable-switch.zip
+          asset_content_type: application/zip
+      - name: Upload PS VITA Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-vita.zip
+          asset_name: nzportable-vita.zip
+          asset_content_type: application/zip
+      - name: Upload WIN32 Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-win32.zip
+          asset_name: nzportable-win32.zip
+          asset_content_type: application/zip
+      - name: Upload WIN64 Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/nzportable-win64.zip
+          asset_name: nzportable-win64.zip
+          asset_content_type: application/zip
+      - name: Upload Build Version TXT
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/build-version.txt
+          asset_name: build-version.txt
+          asset_content_type: text/example
+      - name: Publish Release
+        uses: StuYarrow/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          id: ${{ steps.create_release.outputs.id }}
