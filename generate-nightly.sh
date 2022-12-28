@@ -139,9 +139,8 @@ wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nz
 # QuakeC
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/nx-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/pc-nzp-qc.zip
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/psp-nzp-qc.zip
+wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/handheld-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/vita-nzp-qc.zip
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/ctr-nzp-qc.zip
 
 # Quakespasm
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
@@ -215,7 +214,7 @@ cd ../
 cd psp-assembly
 mkdir assets
 unzip -q ../psp-nzp-assets.zip -d assets/
-unzip -q ../psp-nzp-qc.zip -d assets/nzportable/nzp/
+unzip -q ../handheld-nzp-qc.zip -d assets/nzportable/nzp/
 unzip -q ../psp-nzp-eboots.zip -d $PWD
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 mv EBOOT.PBP assets/nzportable/
@@ -272,7 +271,7 @@ cd ../
 cd 3ds-assembly
 mkdir assets
 unzip -q ../3ds-nzp-assets.zip -d assets/
-unzip -q ../ctr-nzp-qc.zip -d assets/nzportable/nzp
+unzip -q ../handheld-nzp-qc.zip -d assets/nzportable/nzp
 unzip -q ../ctr-nzp-3dsx.zip -d assets/nzportable/
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 cd assets/
