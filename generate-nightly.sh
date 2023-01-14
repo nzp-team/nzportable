@@ -137,10 +137,9 @@ wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nz
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win64.zip
 
 # QuakeC
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/nx-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/pc-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/handheld-nzp-qc.zip
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/vita-nzp-qc.zip
+wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/quakespasm-nzp-qc.zip
 
 # Quakespasm
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
@@ -238,7 +237,7 @@ cd ../
 cd nx-assembly
 mkdir assets
 unzip -q ../nx-nzp-assets.zip -d assets/
-unzip -q ../nx-nzp-qc.zip -d assets/nzportable/nzp
+unzip -q ../quakespasm-nzp-qc.zip -d assets/nzportable/nzp
 unzip -q ../nx-nzp-nro.zip -d $PWD
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 mv nzportable.nacp assets/nzportable
@@ -255,7 +254,7 @@ cd ../
 cd vita-assembly
 mkdir assets
 unzip -q ../vita-nzp-assets.zip -d assets/
-unzip -q ../vita-nzp-qc.zip -d assets/data/nzp/nzp
+unzip -q ../quakespasm-nzp-qc.zip -d assets/data/nzp/nzp
 unzip -q ../vita-nzp-vpk.zip -d $PWD
 echo $BUILD_STRING > assets/data/nzp/nzp/version.txt
 mv nzp.vpk assets/
