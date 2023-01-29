@@ -10,7 +10,7 @@ assignees: ''
 # When giving your report a title, please append a [LABEL], example [LABEL]s include:
 # [PSP], [NX] (Nintendo Switch), [VITA], [SERVER] (for game code), [CSQC] (for PC hud or viewmodel stuff), [MENU] (for PC menu)
 # If related to CO-OP,  append "CO-OP/" to the label, (e.g. [CO-OP/SERVER].
-
+# If this is a Suggestion please append the label [SUGGESTION].
 **Describe the bug**
 A clear and concise description of what the bug is.
 
