@@ -112,7 +112,7 @@ printf " so make sure to open HBLauncher by holding 'R' over an installed title!
 printf "* PS VITA: Extract the .ZIP archive into ux0: and install \`nzp.vpk\`.\n" >> changes.txt
 printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`" >> changes.txt
 printf "\n " >> changes.txt
-printf "You can also play the WebGL version at https://nzp-team.github.io/latest/game.html" >> changes.txt
+printf "\nYou can also play the WebGL version at https://nzp.gay/" >> changes.txt
 
 #
 # Start the packaging process
