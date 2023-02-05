@@ -137,9 +137,8 @@ wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nz
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win64.zip
 
 # QuakeC
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/pc-nzp-qc.zip
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/handheld-nzp-qc.zip
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/quakespasm-nzp-qc.zip
+wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/fte-nzp-qc.zip
+wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Quakespasm
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
@@ -159,7 +158,7 @@ echo $BUILD_STRING > release_version.txt
 cd pc-assembly
 mkdir assets
 unzip -q ../pc-nzp-assets.zip -d assets/
-unzip -q ../pc-nzp-qc.zip -d assets/nzp/
+unzip -q ../fte-nzp-qc.zip -d assets/nzp/
 unzip -q ../pc-nzp-linux32.zip -d $PWD
 unzip -q ../pc-nzp-linux64.zip -d $PWD
 unzip -q ../pc-nzp-linux_arm64.zip -d $PWD
@@ -213,7 +212,7 @@ cd ../
 cd psp-assembly
 mkdir assets
 unzip -q ../psp-nzp-assets.zip -d assets/
-unzip -q ../handheld-nzp-qc.zip -d assets/nzportable/nzp/
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp/
 unzip -q ../psp-nzp-eboots.zip -d $PWD
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 mv EBOOT.PBP assets/nzportable/
@@ -237,7 +236,7 @@ cd ../
 cd nx-assembly
 mkdir assets
 unzip -q ../nx-nzp-assets.zip -d assets/
-unzip -q ../quakespasm-nzp-qc.zip -d assets/nzportable/nzp
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp
 unzip -q ../nx-nzp-nro.zip -d $PWD
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 mv nzportable.nacp assets/nzportable
@@ -254,7 +253,7 @@ cd ../
 cd vita-assembly
 mkdir assets
 unzip -q ../vita-nzp-assets.zip -d assets/
-unzip -q ../quakespasm-nzp-qc.zip -d assets/data/nzp/nzp
+unzip -q ../standard-nzp-qc.zip -d assets/data/nzp/nzp
 unzip -q ../vita-nzp-vpk.zip -d $PWD
 echo $BUILD_STRING > assets/data/nzp/nzp/version.txt
 mv nzp.vpk assets/
@@ -270,7 +269,7 @@ cd ../
 cd 3ds-assembly
 mkdir assets
 unzip -q ../3ds-nzp-assets.zip -d assets/
-unzip -q ../handheld-nzp-qc.zip -d assets/nzportable/nzp
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp
 unzip -q ../ctr-nzp-3dsx.zip -d assets/nzportable/
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 cd assets/
