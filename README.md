@@ -12,6 +12,7 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * Nintendo 3DS
 * PlayStation Portable (both "PHAT" (PSP-1000) and "SLIM" (PSP-2000 and higher))
 * PlayStation VITA
+* [WebGL](https://nzp-team.github.io/latest/game.html)
 * Windows (x86, x86_64)
 
 # GitHub Organzation Breakdown
