@@ -178,4 +178,94 @@ jobs:
           itchGameId: nazi-zombies-portable
           buildChannel: 3ds
           buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Linux 32-Bit
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-linux32.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux-x86
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Linux 64-Bit
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-linux64.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux-x86_64
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Linux ARM64
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-linuxarm64.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux-arm64
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Linux ARMhf
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-linuxarmhf.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux-armhf
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - PlayStation Portable 32mB
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-psp-32mb.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: psp-1000
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - PlayStation Portable 64mB
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-psp-64mb.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: psp-2000
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Nintendo Switch
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-switch.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: switch
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - PlayStation VITA
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-vita.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: vita
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Windows 32-bit
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-win32.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: windows-x86
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Windows 64-bit
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-win64.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: windows-x86_64
+          buildNumberFile: build-version.txt
 
