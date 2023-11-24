@@ -144,3 +144,38 @@ jobs:
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
             ./out/build-version.txt
+
+  deploy-to-itch:
+    name: Deploy to itch.io
+    if: github.ref == 'refs/heads/main' && github.repository_owner == 'nzp-team'
+    runs-on: ubuntu-latest
+    needs:
+      - Generate-Nightly
+    steps:
+      - name: Install WGET
+        run: |
+          sudo apt update && sudo apt install -y wget
+      - name: Download data
+        run: |
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/build-version.txt
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-3ds.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux32.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarm64.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarmhf.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp-32mb.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp-64mb.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-switch.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win32.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win64.zip
+      - name: Upload to itch.io - Nintendo 3DS
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-3ds.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: 3ds
+          buildNumberFile: build-version.txt
+
