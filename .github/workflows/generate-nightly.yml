@@ -10,7 +10,7 @@ jobs:
     container:
       image: sharkwouter/pspdev
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Get apt ready
         run: |
           apt update
@@ -22,7 +22,7 @@ jobs:
           ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}
       - name: Get Build Date
         id: date
-        run: echo "::set-output name=date::$(cat release_version.txt)"
+        run: echo "{name}={date::$(cat release_version.txt)}" >> $GITHUB_OUTPUT
       - name: Delete Old Release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
