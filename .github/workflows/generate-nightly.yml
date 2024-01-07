@@ -30,6 +30,8 @@ jobs:
           tag_name: nightly
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Wait ...
+        run: sleep 10
       - name: Release
         uses: softprops/action-gh-release@v1
         continue-on-error: true
