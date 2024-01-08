@@ -22,7 +22,7 @@ jobs:
           ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}
       - name: Get Build Date
         id: date
-        run: echo "{name}={date::$(cat release_version.txt)}" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=date::$(cat release_version.txt)"
       - name: Delete Old Release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
         with:
