@@ -167,40 +167,40 @@ unzip -q ../pc-nzp-win32.zip -d $PWD
 unzip -q ../pc-nzp-win64.zip -d $PWD
 echo $BUILD_STRING > assets/nzp/version.txt
 cp assets/nzp/version.txt ../out/build-version.txt
-mv nzportable32 assets/
+mv nzportable32-sdl assets/
 cd assets
 zip -q -r ../nzportable-linux32.zip ./*
-rm nzportable32
+rm nzportable32-sdl
 cd ../
 mv nzportable-linux32.zip ../out/
-mv nzportable64 assets/
+mv nzportable64-sdl assets/
 cd assets
 zip -q -r ../nzportable-linux64.zip ./*
-rm nzportable64
+rm nzportable64-sdl
 cd ../
 mv nzportable-linux64.zip ../out/
-mv nzportablearm64 assets/
+mv nzportablearm64-sdl assets/
 cd assets
 zip -q -r ../nzportable-linuxarm64.zip ./*
-rm nzportablearm64
+rm nzportablearm64-sdl
 cd ../
 mv nzportable-linuxarm64.zip ../out/
-mv nzportablearmhf assets/
+mv nzportablearmhf-sdl assets/
 cd assets
 zip -q -r ../nzportable-linuxarmhf.zip ./*
-rm nzportablearmhf
+rm nzportablearmhf-sdl
 cd ../
 mv nzportable-linuxarmhf.zip ../out/
-mv nzportable.exe assets/
+mv nzportable-sdl.exe assets/
 cd assets
 zip -q -r ../nzportable-win32.zip ./*
-rm nzportable.exe
+rm nzportable-sdl.exe
 cd ../
 mv nzportable-win32.zip ../out/
-mv nzportable64.exe assets/
+mv nzportable-sdl64.exe assets/
 cd assets
 zip -q -r ../nzportable-win64.zip ./*
-rm nzportable64.exe
+rm nzportable-sdl64.exe
 cd ../
 mv nzportable-win64.zip ../out/
 cd ../
