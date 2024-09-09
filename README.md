@@ -17,7 +17,7 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 
 # GitHub Organzation Breakdown
 * [assets](https://github.com/nzp-team/assets): Game GFX, Sound, etc. data.
-* [dquakeplus](https://github.com/nzp-team/dquakeplus): The NZ:P PSP engine, forked from dQuakePlus.
+* [vril-engine](https://github.com/nzp-team/vril-engine): The NZ:P engine for PlayStation Portable and Nintendo 3DS.
 * [fteqw](https://github.com/nzp-team/fteqw): The NZ:P Windows, Mac, Linux, and Web engine. Powered by Spike's FTEQW, with minimal changes.
 * [glquake](https://github.com/nzp-team/glquake): The NZ:P Nintendo 3DS engine, forked from ctrQuake.
 * [quakespasm](https://github.com/nzp-team/quakespasm): The NZ:P Nintendo Switch and PS VITA engine, forked from QuakespasmNX.
