@@ -47,8 +47,7 @@ jobs:
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
@@ -70,8 +69,7 @@ jobs:
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
@@ -93,8 +91,7 @@ jobs:
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
@@ -116,8 +113,7 @@ jobs:
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
@@ -139,8 +135,7 @@ jobs:
             ./out/nzportable-linux64.zip
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
-            ./out/nzportable-psp-32mb.zip
-            ./out/nzportable-psp-64mb.zip
+            ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
             ./out/nzportable-win32.zip
@@ -165,8 +160,7 @@ jobs:
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarm64.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarmhf.zip
-          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp-32mb.zip
-          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp-64mb.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-switch.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win32.zip
@@ -220,19 +214,10 @@ jobs:
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: nzportable-psp-32mb.zip
+          gameData: nzportable-psp.zip
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: psp-1000
-          buildNumberFile: build-version.txt
-      - name: Upload to itch.io - PlayStation Portable 64mB
-        uses: KikimoraGames/itch-publish@v0.0.3
-        with:
-          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: nzportable-psp-64mb.zip
-          itchUsername: nzp-team
-          itchGameId: nazi-zombies-portable
-          buildChannel: psp-2000
           buildNumberFile: build-version.txt
       - name: Upload to itch.io - Nintendo Switch
         uses: KikimoraGames/itch-publish@v0.0.3
