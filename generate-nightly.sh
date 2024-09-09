@@ -11,7 +11,6 @@ FTEQW_UPDATE="0"
 QUAKC_UPDATE="0"
 DQUAK_UPDATE="0"
 SPASM_UPDATE="0"
-GLQUA_UPDATE="0"
 
 # The time of execution in epoch
 CURRENT_TIME=$(date "+%s")
@@ -26,9 +25,8 @@ BUILD_STRING="2.0.0-indev+$(date +'%Y%m%d%H%M%S')"
 ASSET_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/assets/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/fteqw/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakec/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/dquakeplus/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
+DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 SPASM_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-GLQUA_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/glquake/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 
 # Now check through them all and see if any have been updated recently
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
@@ -54,11 +52,6 @@ fi
 if [ "$SPASM_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
     SPASM_UPDATE="1"
-fi
-
-if [ "$GLQUA_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
-    PUSH_NIGHTLY="1"
-    GLQUA_UPDATE="1"
 fi
 
 # Do we proceed?
@@ -90,7 +83,7 @@ if [ "$QUAKC_UPDATE" -eq "1" ]; then
 fi
 
 if [ "$DQUAK_UPDATE" -eq "1" ]; then
-    printf "* dQuakePlus (PSP Engine)\n" >> changes.txt
+    printf "* Vril (PSP/3DS Engine)\n" >> changes.txt
 fi
 
 if [ "$SPASM_UPDATE" -eq "1" ]; then
@@ -125,8 +118,9 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/psp-nzp-ass
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/vita-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/3ds-nzp-assets.zip
 
-# dQuake
-wget -nc https://github.com/nzp-team/dquakeplus/releases/download/bleeding-edge/psp-nzp-eboots.zip
+# Vril
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp-nzp-eboot.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
 
 # FTEQW
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux32.zip
@@ -143,9 +137,6 @@ wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/stan
 # Quakespasm
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
-
-# glQuake
-wget -nc https://github.com/nzp-team/glquake/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
 
 # Directory setup
 mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,out}
@@ -213,20 +204,13 @@ cd psp-assembly
 mkdir assets
 unzip -q ../psp-nzp-assets.zip -d assets/
 unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp/
-unzip -q ../psp-nzp-eboots.zip -d $PWD
+unzip -q ../psp-nzp-eboot.zip -d $PWD
 echo $BUILD_STRING > assets/nzportable/nzp/version.txt
 mv EBOOT.PBP assets/nzportable/
 cd assets/
-zip -q -r ../nzportable-psp-32mb.zip ./*
-rm nzportable/EBOOT.PBP
+zip -q -r ../nzportable-psp.zip ./*
 cd ../
-mv nzportable-psp-32mb.zip ../out/
-mv EBOOT2000.PBP assets/nzportable/EBOOT.PBP
-cd assets
-zip -q -r ../nzportable-psp-64mb.zip ./*
-rm nzportable/EBOOT.PBP
-cd ../
-mv nzportable-psp-64mb.zip ../out/
+mv nzportable-psp.zip ../out/
 cd ../
 
 #
