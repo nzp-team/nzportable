@@ -210,14 +210,14 @@ jobs:
           itchGameId: nazi-zombies-portable
           buildChannel: linux-armhf
           buildNumberFile: build-version.txt
-      - name: Upload to itch.io - PlayStation Portable 32mB
+      - name: Upload to itch.io - PlayStation Portable
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
           gameData: nzportable-psp.zip
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
-          buildChannel: psp-1000
+          buildChannel: psp
           buildNumberFile: build-version.txt
       - name: Upload to itch.io - Nintendo Switch
         uses: KikimoraGames/itch-publish@v0.0.3
