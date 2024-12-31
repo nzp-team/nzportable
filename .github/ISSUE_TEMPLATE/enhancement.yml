@@ -1,0 +1,30 @@
+---
+name: Enhancement
+description: "File a report for a feature request inside of Nazi Zombies: Portable"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out and document a featyre reqyest. Please be mindful that these tickets are to be treated seriously,
+        any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
+
+        Please understand as stated in the [README](https://github.com/nzp-team/nzportable?tab=readme-ov-file#about) requests for features from future
+        Call of Duty titles are likely to be closed.
+
+        This is an English-only form.
+  - type: textarea
+    attributes:
+      label: Description
+      description: "Provide a brief description of your feature request."
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification of Submission
+      description: Verify that you have selected options above and filled out request properly and in full. 
+      options:
+        - label: I agree that I properly filled out the items listed above. I understand an issue may be closed if process is not properly followed.
+          required: true
+

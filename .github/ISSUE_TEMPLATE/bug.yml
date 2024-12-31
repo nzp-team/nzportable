@@ -1,0 +1,74 @@
+---
+name: Issue
+description: "File a report for a bug/issue inside of Nazi Zombies: Portable"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out and document any bugs. Please be mindful that these tickets are to be treated seriously,
+        any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
+
+        Additionally, please attach a video or image demonstrating the issue being presented as a comment below your submission.
+
+        This is an English-only form.
+  - type: dropdown
+    id: model
+    attributes:
+      label: System Model
+      description: "Select all systems you have tested and encountered this issue on. Please test on more than one system to assist with triage."
+      multiple: true
+      options:
+          - PlayStation Portable (PHAT)
+          - PlayStation Portable (SLIM)
+          - Nintendo Switch
+          - OLD Nintendo 3DS
+          - NEW Nintendo 3DS
+          - PlayStation VITA
+          - Microsoft Windows (x86)
+          - Microsoft Windows (x86_64)
+          - Linux (x86)
+          - Linux (x86_64)
+          - Linux (arm)
+          - Linux (armhf)
+          - Linux (arm64)
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Game Version
+      description: "Enter the Nazi Zombies: Portable game version as it appears in the main menu."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Download Source
+      description: "Enter the source you used to download the game. Only official sources will be acknowledged."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: "Provide a brief description of the issue you are reporting. This should only be a few sentences."
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: "Step-by-step process on how to reproduce the issue. Be short and to the point."
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification of Submission
+      description: Verify that you have selected options above and filled out request properly and in full. 
+      options:
+        - label: I agree that I properly filled out the items listed above. I understand an issue may be closed if process is not properly followed. I will attach an image or video below this issue after pressing submit.
+          required: true
+
