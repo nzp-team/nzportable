@@ -6,11 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to fill out and document a featyre reqyest. Please be mindful that these tickets are to be treated seriously,
-        any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
+        Thank you for taking the time to fill out and document a feature request. Please be mindful that these tickets are to be treated seriously, any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
 
-        Please understand as stated in the [README](https://github.com/nzp-team/nzportable?tab=readme-ov-file#about) requests for features from future
-        Call of Duty titles are likely to be closed.
+        Please understand as stated in the [README](https://github.com/nzp-team/nzportable?tab=readme-ov-file#about) requests for features from future Call of Duty titles are likely to be closed.
 
         This is an English-only form.
   - type: textarea

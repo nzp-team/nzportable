@@ -6,8 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for taking the time to fill out and document any bugs. Please be mindful that these tickets are to be treated seriously,
-        any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
+        Thank you for taking the time to fill out and document any bugs. Please be mindful that these tickets are to be treated seriously, any content deemed disrespectful, jokeful, or does not adequately follow the steps below will be immediately closed and potentially removed.
 
         Additionally, please attach a video or image demonstrating the issue being presented as a comment below your submission.
 
