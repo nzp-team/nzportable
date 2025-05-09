@@ -31,6 +31,9 @@ body:
           - Linux (arm)
           - Linux (armhf)
           - Linux (arm64)
+          - WASM (Chromium-based browser)
+          - WASM (Firefox-based browser)
+          - WASM (WebKit-based browser)
     validations:
       required: true
   - type: input
