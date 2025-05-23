@@ -1,7 +1,9 @@
 ---
 name: Issue
 description: "File a report for a bug/issue inside of Nazi Zombies: Portable"
-labels: ["bug"]
+type: 'bug'
+assignees:
+  - tanuki-billie
 body:
   - type: markdown
     attributes:
