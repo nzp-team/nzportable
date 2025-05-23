@@ -1,7 +1,9 @@
 ---
 name: Enhancement
 description: "File a report for a feature request inside of Nazi Zombies: Portable"
-labels: ["enhancement"]
+type: 'feature'
+assignees:
+  - MotoLegacy
 body:
   - type: markdown
     attributes:
