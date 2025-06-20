@@ -265,7 +265,7 @@ jobs:
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: nzportable-nzpire.zip
+          gameData: nzportable-nspire.zip
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: nspire
