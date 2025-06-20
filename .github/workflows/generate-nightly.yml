@@ -42,6 +42,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-nspire.zip
             ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
@@ -64,6 +65,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-nspire.zip
             ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
@@ -86,6 +88,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-nspire.zip
             ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
@@ -108,6 +111,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-nspire.zip
             ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
@@ -130,6 +134,7 @@ jobs:
           body_path: changes.txt
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
+            ./out/nzportable-nspire.zip
             ./out/nzportable-3ds.zip
             ./out/nzportable-linux32.zip
             ./out/nzportable-linux64.zip
@@ -155,6 +160,7 @@ jobs:
       - name: Download data
         run: |
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/build-version.txt
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-nspire.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-3ds.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux32.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip
@@ -254,5 +260,14 @@ jobs:
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: windows-x86_64
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - TI-NSPIRE
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-nzpire.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: nspire
           buildNumberFile: build-version.txt
 
