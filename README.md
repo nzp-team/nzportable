@@ -14,6 +14,7 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * PlayStation VITA
 * [WebGL](https://nzp.gay)
 * Windows (x86, x86_64)
+* TI NSPIRE (CX II)
 
 # GitHub Organzation Breakdown
 * [assets](https://github.com/nzp-team/assets): Game GFX, Sound, etc. data.
@@ -58,6 +59,7 @@ Blubswillrule, Biodude, Cypress, Marty P.
 * fgsfdsfgs: Quakespasm-NX
 * MasterFeizz: ctrQuake
 * Rinnegatamante: Initial VITA port, VITA Auto-Updater
+* Ralf Willenbacher: nQuake
 * Azenn: GFX Assistance
 * BCDeshiG: Extensive Testing
 

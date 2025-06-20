@@ -83,7 +83,7 @@ if [ "$QUAKC_UPDATE" -eq "1" ]; then
 fi
 
 if [ "$DQUAK_UPDATE" -eq "1" ]; then
-    printf "* Vril (PSP/3DS Engine)\n" >> changes.txt
+    printf "* Vril (PSP/3DS/NSPIRE Engine)\n" >> changes.txt
 fi
 
 if [ "$SPASM_UPDATE" -eq "1" ]; then
@@ -104,6 +104,7 @@ printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra mem
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
 printf "* PS VITA: Extract the .ZIP archive into ux0: and install \`nzp.vpk\`.\n" >> changes.txt
 printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`" >> changes.txt
+printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
 printf "\n " >> changes.txt
 printf "\nYou can also play the WebGL version at https://nzp.gay/" >> changes.txt
 
@@ -117,10 +118,12 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/pc-nzp-asse
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/psp-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/vita-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/3ds-nzp-assets.zip
+wget -nc https://github.com/nzp-team/assets/releases/download/newest/nspire-nzp-assets.zip
 
 # Vril
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp-nzp-eboot.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
 
 # FTEQW
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux32.zip
@@ -139,7 +142,7 @@ wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -260,4 +263,21 @@ cd assets/
 zip -q -r ../nzportable-3ds.zip ./*
 cd ../
 mv nzportable-3ds.zip ../out/
+cd ../
+
+#
+# Assemble TI-NSPIRE Build
+#
+cd nspire-assembly
+mkdir assets
+unzip -q ../nspire-nzp-assets.zip -d assets/
+unzip -q ../standard-nzp-qc.zip -d assets/nzp
+# Progs need renaming to .tns
+mv assets/nzp/progs.dat assets/nzp/progs.dat.tns
+unzip -q ../nspire-nzp-tns.zip -d assets/
+echo $BUILD_STRING > assets/nzp/version.txt.tns
+cd assets/
+zip -q -r ../nzportable-nspire.zip ./*
+cd ../
+mv nzportable-nspire.zip ../out/
 cd ../
