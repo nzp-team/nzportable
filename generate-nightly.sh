@@ -103,7 +103,7 @@ printf "* Nintendo Switch: Extract the `nzportable` folder inside the .ZIP archi
 printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra memory," >> changes.txt
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
 printf "* PS VITA: Extract the .ZIP archive into ux0: and install \`nzp.vpk\`.\n" >> changes.txt
-printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`" >> changes.txt
+printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
 printf "\n " >> changes.txt
 printf "\nYou can also play the WebGL version at https://nzp.gay/" >> changes.txt
