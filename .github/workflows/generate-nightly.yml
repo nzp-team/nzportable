@@ -23,6 +23,7 @@ jobs:
             ./generate-nightly.sh --force
           else
             ./generate-nightly.sh
+          fi
       - name: Get Build Date
         id: date
         run: echo "::set-output name=date::$(cat release_version.txt)"
