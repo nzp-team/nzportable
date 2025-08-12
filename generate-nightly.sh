@@ -22,11 +22,17 @@ YESTERDAY_TIME=$(expr $CURRENT_TIME - 86400)
 BUILD_STRING="2.0.0-indev+$(date +'%Y%m%d%H%M%S')"
 
 # Epoch times for every repo we care about
-ASSET_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/assets/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/fteqw/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakec/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-SPASM_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
+ASSET_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/assets/branches/main | jq -r '.commit.commit.author.date'))
+FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/fteqw/branches/master | jq -r '.commit.commit.author.date'))
+QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/quakec/branches/main | jq -r '.commit.commit.author.date'))
+DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq -r '.commit.commit.author.date'))
+SPASM_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq -r '.commit.commit.author.date'))
+
+echo "ASSET_REPO_TIME: $ASSET_REPO_TIME"
+echo "FTEQW_REPO_TIME: $FTEQW_REPO_TIME" 
+echo "QUAKC_REPO_TIME: $QUAKC_REPO_TIME"
+echo "DQUAK_REPO_TIME: $DQUAK_REPO_TIME"
+echo "SPASM_REPO_TIME: $SPASM_REPO_TIME"
 
 # Now check through them all and see if any have been updated recently
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
@@ -142,7 +148,7 @@ wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,flatpak-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
