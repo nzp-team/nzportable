@@ -2,7 +2,6 @@
 
 # Check for flags
 FORCE_RUN="0"
-GITHUB_TOKEN=""
 if [ "$1" = "--force" ] || [ "$1" = "-f" ]; then
     FORCE_RUN="1"
     shift
