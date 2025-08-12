@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check for flags
+FORCE_RUN="0"
+GITHUB_TOKEN=""
+if [ "$1" = "--force" ] || [ "$1" = "-f" ]; then
+    FORCE_RUN="1"
+    shift
+fi
+
 # Whether to do a nightly
 PUSH_NIGHTLY="0"
 
@@ -28,12 +36,6 @@ QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/
 DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq -r '.commit.commit.author.date'))
 SPASM_REPO_TIME=$(date "+%s" -d $(curl -s https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq -r '.commit.commit.author.date'))
 
-echo "ASSET_REPO_TIME: $ASSET_REPO_TIME"
-echo "FTEQW_REPO_TIME: $FTEQW_REPO_TIME" 
-echo "QUAKC_REPO_TIME: $QUAKC_REPO_TIME"
-echo "DQUAK_REPO_TIME: $DQUAK_REPO_TIME"
-echo "SPASM_REPO_TIME: $SPASM_REPO_TIME"
-
 # Now check through them all and see if any have been updated recently
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
@@ -58,6 +60,11 @@ fi
 if [ "$SPASM_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
     SPASM_UPDATE="1"
+fi
+
+# Check if the run was forced
+if [ "$FORCE_RUN" = "1" ]; then
+    PUSH_NIGHTLY="1"
 fi
 
 # Do we proceed?

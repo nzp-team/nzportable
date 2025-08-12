@@ -19,7 +19,10 @@ jobs:
         continue-on-error: false
         working-directory: ./
         run: |
-          ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            ./generate-nightly.sh --force
+          else
+            ./generate-nightly.sh
       - name: Get Build Date
         id: date
         run: echo "::set-output name=date::$(cat release_version.txt)"
