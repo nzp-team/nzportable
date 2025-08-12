@@ -154,7 +154,7 @@ wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/
 wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,flatpak-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
