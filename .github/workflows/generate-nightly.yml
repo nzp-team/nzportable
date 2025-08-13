@@ -372,7 +372,7 @@ jobs:
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butletApiKey: ${{ secrets.BUTLER_API_KEY }}
-          gameData: nzportable-linux64.flatpak
+          gameData: nzportable-linux_arm64.flatpak
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: linux-arm64-flatpak
