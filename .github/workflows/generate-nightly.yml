@@ -146,6 +146,93 @@ jobs:
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
             ./out/build-version.txt
+  
+  build-flatpak:
+    name: Build Flatpak
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.variant.runner }}
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
+    needs: Generate-Nightly
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Map CPU architecture to engine ZIP name
+        id: archmap
+        run: |
+          case "${{ matrix.variant.arch }}" in
+            x86_64)
+              echo "engine_arch=linux64" >> $GITHUB_OUTPUT
+              echo "engine_url=https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux64.zip" >> $GITHUB_OUTPUT
+              ;;
+            aarch64)
+              echo "engine_arch=linux_arm64" >> $GITHUB_OUTPUT
+              echo "engine_url=https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_arm64.zip" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "Unsupported arch: ${{ matrix.variant.arch }}" && exit 1
+              ;;
+          esac
+      - name: Download Flatpak dependencies + add Flathub remote
+        run: |
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08 || true
+      - name: Download release files to get sha256s
+        run: |
+          set -euo pipefail
+
+          # Set engine URL per arch
+          ENGINE_URL="${{ steps.archmap.outputs.engine_url }}"
+
+          # Get build string
+          wget -q https://github.com/nzp-team/nzportable/releases/download/nightly/build-version.txt
+          BUILD_STRING=$(cat build-version.txt)
+
+          # Download common/module archives (NZ:P assets/QC)
+          wget -q https://github.com/nzp-team/assets/releases/download/newest/pc-nzp-assets.zip -O pc-nzp-assets.zip
+          wget -q https://github.com/nzp-team/quakec/releases/download/bleeding-edge/fte-nzp-qc.zip -O fte-nzp-qc.zip
+
+          # Download engine ZIP
+          wget -q "$ENGINE_URL" -O fte-nzp-engine.zip
+
+          # Get sha256s
+          ASSETS_SHA=$(sha256sum pc-nzp-assets.zip | cut -d' ' -f1)
+          QUAKEC_SHA=$(sha256sum fte-nzp-qc.zip | cut -d' ' -f1)
+          FTEQW_SHA=$(sha256sum fte-nzp-engine.zip | cut -d' ' -f1)
+
+          # Replace placeholders in manifest
+          sed -i "s/ASSETS_SHA256_REPLACE/${ASSETS_SHA}/" gay.nzp.nzportable.json
+          sed -i "s/QC_SHA256_REPLACE/${QUAKEC_SHA}/" gay.nzp.nzportable.json
+          if [ "${{ matrix.variant.arch }}" = "x86_64" ]; then
+            sed -i "s/FTEQW64_SHA256_REPLACE/${FTEQW_SHA}/" gay.nzp.nzportable.json
+          else
+            sed -i "s/FTEQWARCH64_SHA256_REPLACE/${FTEQW_SHA}/" gay.nzp.nzportable.json
+          fi
+          sed -i "s/\"nightly\"/\"${BUILD_STRING}\"/" gay.nzp.nzportable.json
+
+          cat gay.nzp.nzportable.json
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: nzportable-${{ steps.archmap.outputs.engine_arch }}.flatpak
+          manifest-path: gay.nzp.nzportable.json
+          arch: ${{ matrix.variant.arch }}
+          cache-key: flatpak-builder-${{ github.sha }}-${{ matrix.variant.arch }}
+          verbose: true
+      - name: Upload Flatpak to release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: nightly
+          files: nzportable-${{ steps.archmap.outputs.engine_arch }}.flatpak
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-to-itch:
     name: Deploy to itch.io
@@ -171,6 +258,8 @@ jobs:
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win32.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win64.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.flatpak
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux_arm64.flatpak
       - name: Upload to itch.io - Nintendo 3DS
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
@@ -269,5 +358,23 @@ jobs:
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: nspire
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Flatpak 64-bit
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butletApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: nzportable-linux64.flatpak
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux64-flatpak
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Flatpak ARM64
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butletApiKey: ${{ secrets.BUTLER_API_KEY }}
+          gameData: nzportable-linux64.flatpak
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: linux-arm64-flatpak
           buildNumberFile: build-version.txt
 

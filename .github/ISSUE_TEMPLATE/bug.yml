@@ -34,6 +34,8 @@ body:
           - Linux (arm)
           - Linux (armhf)
           - Linux (arm64)
+          - Linux (Flatpak, x86_64)
+          - Linux (Flatpak, arm64)
           - WASM (Chromium-based browser)
           - WASM (Firefox-based browser)
           - WASM (WebKit-based browser)
