@@ -258,8 +258,6 @@ jobs:
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win32.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-win64.zip
-          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.flatpak
-          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux_arm64.flatpak
       - name: Upload to itch.io - Nintendo 3DS
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
@@ -359,22 +357,3 @@ jobs:
           itchGameId: nazi-zombies-portable
           buildChannel: nspire
           buildNumberFile: build-version.txt
-      - name: Upload to itch.io - Flatpak 64-bit
-        uses: KikimoraGames/itch-publish@v0.0.3
-        with:
-          butletApiKey: ${{ secrets.BUTLER_API_KEY }}
-          gameData: nzportable-linux64.flatpak
-          itchUsername: nzp-team
-          itchGameId: nazi-zombies-portable
-          buildChannel: linux64-flatpak
-          buildNumberFile: build-version.txt
-      - name: Upload to itch.io - Flatpak ARM64
-        uses: KikimoraGames/itch-publish@v0.0.3
-        with:
-          butletApiKey: ${{ secrets.BUTLER_API_KEY }}
-          gameData: nzportable-linux_arm64.flatpak
-          itchUsername: nzp-team
-          itchGameId: nazi-zombies-portable
-          buildChannel: linux-arm64-flatpak
-          buildNumberFile: build-version.txt
-
