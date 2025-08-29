@@ -18,26 +18,6 @@
     ],
     "modules": [
         {
-            "name": "nzportable-all",
-            "buildsystem": "simple",
-            "build-commands":  [
-                "mkdir -p /app/share/nzportable",
-                "cp -r * /app/share/nzportable/"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/nzp-team/assets/releases/download/newest/pc-nzp-assets.zip",
-                    "sha256": "ASSETS_SHA256_REPLACE"
-                },
-                {
-                    "type": "archive",
-                    "url": "https://github.com/nzp-team/quakec/releases/download/bleeding-edge/fte-nzp-qc.zip",
-                    "sha256": "QC_SHA256_REPLACE"
-                }
-            ]
-        },
-        {
             "name": "nzportable-linux64",
             "only-arches": [
                 "x86_64"
@@ -48,10 +28,12 @@
                 "mkdir -p /app/share/nzportable",
                 "# install the game binary",
                 "install -Dm755 nzportable64-sdl /app/share/nzportable/nzportable.bin",
+                "# install default.fmf",
+                "cp default.fmf /app/share/nzportable/",
                 "# install game data",
                 "mkdir -p /app/share/nzportable/nzp",
                 "for f in *; do if [ \"$f\" != \"nzportable64-sdl\" ] && [ \"$f\" != \"default.fmf\" ]; then cp -r \"$f\" /app/share/nzportable/nzp/; fi; done",
-                "echo \"$BUILD_STRING\" > /app/share/nzportable/nzp/version.txt",
+                "echo \"nightly\" > /app/share/nzportable/nzp/version.txt",
                 "printf '%s\\n' '#!/bin/bash' '' 'DATA_DIR=\"$HOME/.var/app/gay.nzp.nzportable/data\"' 'GAME_DIR=\"$DATA_DIR/nzportable\"' 'SOURCE_DIR=\"/app/share/nzportable\"' '' 'mkdir -p \"$DATA_DIR\"' '' 'if [ ! -d \"$GAME_DIR\" ] || [ ! -f \"$GAME_DIR/nzportable.bin\" ]; then' '    echo \"Setting up NZPortable data directory...\"' '    mkdir -p \"$GAME_DIR\"' '    cp -r \"$SOURCE_DIR\"/* \"$GAME_DIR/\"' '    chmod +x \"$GAME_DIR/nzportable.bin\"' '    echo \"Setup complete.\"' 'fi' '' 'if [ \"$SOURCE_DIR/nzp/version.txt\" -nt \"$GAME_DIR/nzp/version.txt\" ]; then' '    echo \"Updating game data...\"' '    # Preserve user settings' '    if [ -f \"$GAME_DIR/nzp/user_settings.cfg\" ]; then' '        cp \"$GAME_DIR/nzp/user_settings.cfg\" /tmp/nzp_user_settings_backup.cfg' '    fi' '    # Update game files' '    cp -r \"$SOURCE_DIR/nzp\"/* \"$GAME_DIR/nzp/\"' '    # Restore user settings' '    if [ -f \"/tmp/nzp_user_settings_backup.cfg\" ]; then' '        cp /tmp/nzp_user_settings_backup.cfg \"$GAME_DIR/nzp/user_settings.cfg\"' '        rm /tmp/nzp_user_settings_backup.cfg' '    fi' '    echo \"Update complete.\"' 'fi' '' 'cd \"$GAME_DIR\"' 'exec ./nzportable.bin \"$@\"' > nzportable-launcher",
                 "",
                 "install -Dm755 nzportable-launcher /app/bin/nzportable"
@@ -59,8 +41,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux64.zip",
-                    "sha256": "FTEQW64_SHA256_REPLACE"
+                    "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip",
+                    "sha256": "ARCHIVE_SHA256_REPLACE"
                 }
             ]
         },
@@ -75,10 +57,12 @@
                 "mkdir -p /app/share/nzportable",
                 "# install the game binary",
                 "install -Dm755 nzportablearm64-sdl /app/share/nzportable/nzportable.bin",
+                "# install default.fmf",
+                "cp default.fmf /app/share/nzportable/",
                 "# install game data",
                 "mkdir -p /app/share/nzportable/nzp",
                 "for f in *; do if [ \"$f\" != \"nzportablearm64-sdl\" ] && [ \"$f\" != \"default.fmf\" ]; then cp -r \"$f\" /app/share/nzportable/nzp/; fi; done",
-                "echo \"$BUILD_STRING\" > /app/share/nzportable/nzp/version.txt",
+                "echo \"nightly\" > /app/share/nzportable/nzp/version.txt",
                 "printf '%s\\n' '#!/bin/bash' '' 'DATA_DIR=\"$HOME/.var/app/gay.nzp.nzportable/data\"' 'GAME_DIR=\"$DATA_DIR/nzportable\"' 'SOURCE_DIR=\"/app/share/nzportable\"' '' 'mkdir -p \"$DATA_DIR\"' '' 'if [ ! -d \"$GAME_DIR\" ] || [ ! -f \"$GAME_DIR/nzportable.bin\" ]; then' '    echo \"Setting up NZPortable data directory...\"' '    mkdir -p \"$GAME_DIR\"' '    cp -r \"$SOURCE_DIR\"/* \"$GAME_DIR/\"' '    chmod +x \"$GAME_DIR/nzportable.bin\"' '    echo \"Setup complete.\"' 'fi' '' 'if [ \"$SOURCE_DIR/nzp/version.txt\" -nt \"$GAME_DIR/nzp/version.txt\" ]; then' '    echo \"Updating game data...\"' '    # Preserve user settings' '    if [ -f \"$GAME_DIR/nzp/user_settings.cfg\" ]; then' '        cp \"$GAME_DIR/nzp/user_settings.cfg\" /tmp/nzp_user_settings_backup.cfg' '    fi' '    # Update game files' '    cp -r \"$SOURCE_DIR/nzp\"/* \"$GAME_DIR/nzp/\"' '    # Restore user settings' '    if [ -f \"/tmp/nzp_user_settings_backup.cfg\" ]; then' '        cp /tmp/nzp_user_settings_backup.cfg \"$GAME_DIR/nzp/user_settings.cfg\"' '        rm /tmp/nzp_user_settings_backup.cfg' '    fi' '    echo \"Update complete.\"' 'fi' '' 'cd \"$GAME_DIR\"' 'exec ./nzportable.bin \"$@\"' > nzportable-launcher",
                 "",
                 "install -Dm755 nzportable-launcher /app/bin/nzportable"
@@ -86,8 +70,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_arm64.zip",
-                    "sha256": "FTEQWARCH64_SHA256_REPLACE"
+                    "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarm64.zip",
+                    "sha256": "ARCHIVE_SHA256_REPLACE"
                 }
             ]
         }
