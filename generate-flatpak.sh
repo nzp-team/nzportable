@@ -1,4 +1,11 @@
 #!/bin/bash
+
+#
+# Downloads the latest nzportable release for the specified architecture (x86_64 and aarch64 respectively),
+# calculates the sha256 hash, then updates the Flatpak manifest file with the correct
+# hash and build version before the actual Flatpak build.
+#
+
 set -euo pipefail
 
 # Get architecture

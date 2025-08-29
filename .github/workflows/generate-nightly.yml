@@ -182,7 +182,6 @@ jobs:
           sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08 || true
       - name: Run generate-flatpak.sh
         run: |
-          chmod +x generate-flatpak.sh
           ./generate-flatpak.sh "${{ matrix.variant.arch }}"
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
