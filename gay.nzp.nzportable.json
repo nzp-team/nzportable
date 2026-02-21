@@ -48,7 +48,7 @@
                     "type": "archive",
                     "only-arches": [ "x86_64" ],
                     "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip",
-                    "sha256": "bb7646a8ff5be0f3e2af7a9663654954eb349e12394af20855bc71b26caaf412"
+                    "sha256": "ARCHIVE_SHA256_REPLACE"
                 },
                 {
                     "type": "archive",
