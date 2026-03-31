@@ -20,10 +20,10 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * [assets](https://github.com/nzp-team/assets): Game GFX, Sound, etc. data.
 * [vril-engine](https://github.com/nzp-team/vril-engine): The NZ:P engine for PlayStation Portable and Nintendo 3DS.
 * [fteqw](https://github.com/nzp-team/fteqw): The NZ:P Windows, Mac, Linux, and Web engine. Powered by Spike's FTEQW, with minimal changes.
-* [glquake](https://github.com/nzp-team/glquake): The NZ:P Nintendo 3DS engine, forked from ctrQuake.
 * [quakespasm](https://github.com/nzp-team/quakespasm): The NZ:P Nintendo Switch and PS VITA engine, forked from QuakespasmNX.
 * [quakec](https://github.com/nzp-team/quakec): The game-side code for things like weapons and Perk machines.
 * [tools](https://github.com/nzp-team/tools): Misc. development tools.
+* [toolbox](https://github.com/nzp-team/toolbox): AiO Development suite for map makers and contributors.
 
 # Screenshots
 
@@ -62,5 +62,14 @@ Blubswillrule, Biodude, Cypress, Marty P.
 * Ralf Willenbacher: nQuake
 * Azenn: GFX Assistance
 * BCDeshiG: Extensive Testing
+
+# Stars
+<a href="https://www.star-history.com/?repos=nzp-team%2Fnzportable%2Cnzp-team%2Fvril-engine%2Cnzp-team%2Fquakec%2Cnzp-team%2Fassets%2Cnzp-team%2Fnzp-team.github.io&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&legend=top-left" />
+ </picture>
+</a>
 
 †macOS 10.10 Yosemite is a supported platform via the FTEQW engine. This means NZ:P is compatible with macOS, however, cross-compiling FTEQW for macOS via docker or similar has proved a challenge, and as such pre-builds with NZ:Ps changes are not yet available.
