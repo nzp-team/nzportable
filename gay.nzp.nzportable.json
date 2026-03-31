@@ -1,75 +1,58 @@
 {
     "app-id": "gay.nzp.nzportable",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "24.08",
+    "runtime-version": "25.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "nzportable",
     "finish-args": [
-        "--device=dri",
         "--share=ipc",
         "--socket=pulseaudio",
         "--socket=x11",
-        "--socket=wayland",
         "--env=SDL_VIDEODRIVER=x11",
         "--env=SDL_AUDIODRIVER=pulseaudio",
         "--filesystem=xdg-config",
         "--share=network",
-        "--device=input"
+        "--device=all"
     ],
     "modules": [
         {
-            "name": "nzportable-linux64",
-            "only-arches": [
-                "x86_64"
-            ],
+            "name": "nzportable-launcher",
             "buildsystem": "simple",
-            "build-commands": [
-                "mkdir -p /app/bin",
-                "mkdir -p /app/share/nzportable",
-                "# install the game binary",
-                "install -Dm755 nzportable64-sdl /app/share/nzportable/nzportable.bin",
-                "# install default.fmf",
-                "cp default.fmf /app/share/nzportable/",
-                "# install game data",
-                "mkdir -p /app/share/nzportable/nzp",
-                "for f in *; do if [ \"$f\" != \"nzportable64-sdl\" ] && [ \"$f\" != \"default.fmf\" ]; then cp -r \"$f\" /app/share/nzportable/nzp/; fi; done",
-                "echo \"nightly\" > /app/share/nzportable/nzp/version.txt",
-                "printf '%s\\n' '#!/bin/bash' '' 'DATA_DIR=\"$HOME/.var/app/gay.nzp.nzportable/data\"' 'GAME_DIR=\"$DATA_DIR/nzportable\"' 'SOURCE_DIR=\"/app/share/nzportable\"' '' 'mkdir -p \"$DATA_DIR\"' '' 'if [ ! -d \"$GAME_DIR\" ] || [ ! -f \"$GAME_DIR/nzportable.bin\" ]; then' '    echo \"Setting up NZPortable data directory...\"' '    mkdir -p \"$GAME_DIR\"' '    cp -r \"$SOURCE_DIR\"/* \"$GAME_DIR/\"' '    chmod +x \"$GAME_DIR/nzportable.bin\"' '    echo \"Setup complete.\"' 'fi' '' 'if [ \"$SOURCE_DIR/nzp/version.txt\" -nt \"$GAME_DIR/nzp/version.txt\" ]; then' '    echo \"Updating game data...\"' '    # Preserve user settings' '    if [ -f \"$GAME_DIR/nzp/user_settings.cfg\" ]; then' '        cp \"$GAME_DIR/nzp/user_settings.cfg\" /tmp/nzp_user_settings_backup.cfg' '    fi' '    # Update game files' '    cp -r \"$SOURCE_DIR/nzp\"/* \"$GAME_DIR/nzp/\"' '    # Restore user settings' '    if [ -f \"/tmp/nzp_user_settings_backup.cfg\" ]; then' '        cp /tmp/nzp_user_settings_backup.cfg \"$GAME_DIR/nzp/user_settings.cfg\"' '        rm /tmp/nzp_user_settings_backup.cfg' '    fi' '    echo \"Update complete.\"' 'fi' '' 'cd \"$GAME_DIR\"' 'exec ./nzportable.bin \"$@\"' > nzportable-launcher",
-                "",
-                "install -Dm755 nzportable-launcher /app/bin/nzportable"
-            ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip",
-                    "sha256": "ARCHIVE_SHA256_REPLACE"
+                    "type": "script",
+                    "dest-filename": "nzportable-launcher",
+                    "commands": [
+                        "export FTEHOME=\"$HOME/.var/app/gay.nzp.nzportable/data/nzportable/\"",
+                        "mkdir -p \"$FTEHOME/nzp\"",
+                        "exec /app/share/nzportable/nzportable.bin -basedir /app/share/nzportable -usehome \"$@\""
+                    ]
                 }
+            ],
+            "build-commands": [
+                "install -Dm755 nzportable-launcher /app/bin/nzportable"
             ]
         },
         {
-            "name": "nzportable-arm64",
-            "only-arches": [
-                "aarch64"
-            ],
+            "name": "nzportable",
             "buildsystem": "simple",
             "build-commands": [
-                "mkdir -p /app/bin",
-                "mkdir -p /app/share/nzportable",
-                "# install the game binary",
-                "install -Dm755 nzportablearm64-sdl /app/share/nzportable/nzportable.bin",
-                "# install default.fmf",
+                "mkdir -p /app/bin /app/share/nzportable/nzp",
+                "if [ -f nzportable64-sdl ]; then install -Dm755 nzportable64-sdl /app/share/nzportable/nzportable.bin; fi",
+                "if [ -f nzportablearm64-sdl ]; then install -Dm755 nzportablearm64-sdl /app/share/nzportable/nzportable.bin; fi",
                 "cp default.fmf /app/share/nzportable/",
-                "# install game data",
-                "mkdir -p /app/share/nzportable/nzp",
-                "for f in *; do if [ \"$f\" != \"nzportablearm64-sdl\" ] && [ \"$f\" != \"default.fmf\" ]; then cp -r \"$f\" /app/share/nzportable/nzp/; fi; done",
-                "echo \"nightly\" > /app/share/nzportable/nzp/version.txt",
-                "printf '%s\\n' '#!/bin/bash' '' 'DATA_DIR=\"$HOME/.var/app/gay.nzp.nzportable/data\"' 'GAME_DIR=\"$DATA_DIR/nzportable\"' 'SOURCE_DIR=\"/app/share/nzportable\"' '' 'mkdir -p \"$DATA_DIR\"' '' 'if [ ! -d \"$GAME_DIR\" ] || [ ! -f \"$GAME_DIR/nzportable.bin\" ]; then' '    echo \"Setting up NZPortable data directory...\"' '    mkdir -p \"$GAME_DIR\"' '    cp -r \"$SOURCE_DIR\"/* \"$GAME_DIR/\"' '    chmod +x \"$GAME_DIR/nzportable.bin\"' '    echo \"Setup complete.\"' 'fi' '' 'if [ \"$SOURCE_DIR/nzp/version.txt\" -nt \"$GAME_DIR/nzp/version.txt\" ]; then' '    echo \"Updating game data...\"' '    # Preserve user settings' '    if [ -f \"$GAME_DIR/nzp/user_settings.cfg\" ]; then' '        cp \"$GAME_DIR/nzp/user_settings.cfg\" /tmp/nzp_user_settings_backup.cfg' '    fi' '    # Update game files' '    cp -r \"$SOURCE_DIR/nzp\"/* \"$GAME_DIR/nzp/\"' '    # Restore user settings' '    if [ -f \"/tmp/nzp_user_settings_backup.cfg\" ]; then' '        cp /tmp/nzp_user_settings_backup.cfg \"$GAME_DIR/nzp/user_settings.cfg\"' '        rm /tmp/nzp_user_settings_backup.cfg' '    fi' '    echo \"Update complete.\"' 'fi' '' 'cd \"$GAME_DIR\"' 'exec ./nzportable.bin \"$@\"' > nzportable-launcher",
-                "",
-                "install -Dm755 nzportable-launcher /app/bin/nzportable"
+                "for f in *; do if [ \"$f\" != \"nzportable64-sdl\" ] && [ \"$f\" != \"nzportablearm64-sdl\" ] && [ \"$f\" != \"default.fmf\" ]; then cp -r \"$f\" /app/share/nzportable/nzp/; fi; done"
             ],
             "sources": [
                 {
                     "type": "archive",
+                    "only-arches": [ "x86_64" ],
+                    "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linux64.zip",
+                    "sha256": "ARCHIVE_SHA256_REPLACE"
+                },
+                {
+                    "type": "archive",
+                    "only-arches": [ "aarch64" ],
                     "url": "https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarm64.zip",
                     "sha256": "ARCHIVE_SHA256_REPLACE"
                 }
