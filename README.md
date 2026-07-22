@@ -16,6 +16,21 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * Windows (x86, x86_64)
 * TI NSPIRE (CX II)
 
+# Building on macOS
+Install the native dependencies with Homebrew:
+
+```bash
+brew install pkg-config sdl2 libpng jpeg-turbo opus libogg libvorbis gnutls
+```
+
+Then build and assemble a playable package:
+
+```bash
+./build-macos.sh
+```
+
+The script clones the NZ:P FTEQW engine, applies the local macOS Retina mouse-coordinate patch, builds the SDL2 macOS binary, downloads the PC assets and FTE QuakeC payload, bundles required Homebrew dynamic libraries, then writes `out/nzportable-macos-$(uname -m).zip`. To run the unpacked build, open `build/macos/package/nzportable-macos-$(uname -m)/Run NZPortable.command` or run `./nzportable-sdl2` from that package directory.
+
 # GitHub Organzation Breakdown
 * [assets](https://github.com/nzp-team/assets): Game GFX, Sound, etc. data.
 * [vril-engine](https://github.com/nzp-team/vril-engine): The NZ:P engine for PlayStation Portable and Nintendo 3DS.
