@@ -10,7 +10,6 @@ ASSET_UPDATE="0"
 FTEQW_UPDATE="0"
 QUAKC_UPDATE="0"
 DQUAK_UPDATE="0"
-SPASM_UPDATE="0"
 
 # The time of execution in epoch
 CURRENT_TIME=$(date "+%s")
@@ -26,7 +25,6 @@ ASSET_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://a
 FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/fteqw/branches/master | jq '.commit.commit.author.date'| tr -d '"'))
 QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakec/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-SPASM_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakespasm/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 
 # Now check through them all and see if any have been updated recently
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
@@ -47,11 +45,6 @@ fi
 if [ "$DQUAK_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
     DQUAK_UPDATE="1"
-fi
-
-if [ "$SPASM_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
-    PUSH_NIGHTLY="1"
-    SPASM_UPDATE="1"
 fi
 
 # Do we proceed?
@@ -75,7 +68,7 @@ if [ "$ASSET_UPDATE" -eq "1" ]; then
 fi
 
 if [ "$FTEQW_UPDATE" -eq "1" ]; then
-    printf "* FTEQW (PC Engine)\n" >> changes.txt
+    printf "* FTEQW (Windows/Linux/Web Engine)\n" >> changes.txt
 fi
 
 if [ "$QUAKC_UPDATE" -eq "1" ]; then
@@ -83,15 +76,7 @@ if [ "$QUAKC_UPDATE" -eq "1" ]; then
 fi
 
 if [ "$DQUAK_UPDATE" -eq "1" ]; then
-    printf "* Vril (PSP/3DS/NSPIRE Engine)\n" >> changes.txt
-fi
-
-if [ "$SPASM_UPDATE" -eq "1" ]; then
-    printf "* Quakespasm (PS VITA/Nintendo Switch Engine)\n\n" >> changes.txt
-fi
-
-if [ "$GLQUA_UPDATE" -eq "1" ]; then
-    printf "* glQuake (Nintendo 3DS Engine)\n\n" >> changes.txt
+    printf "* Vril (Engine)\n" >> changes.txt
 fi
 
 printf "\n " >> changes.txt
@@ -124,6 +109,8 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/nspire-nzp-
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp-nzp-eboot.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/vita-nzp-vpk.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
 
 # FTEQW
 wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux32.zip
@@ -136,10 +123,6 @@ wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nz
 # QuakeC
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/fte-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
-
-# Quakespasm
-wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/nx-nzp-nro.zip
-wget -nc https://github.com/nzp-team/quakespasm/releases/download/bleeding-edge/vita-nzp-vpk.zip
 
 # Directory setup
 mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
