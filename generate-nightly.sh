@@ -109,7 +109,7 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/nspire-nzp-
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp-nzp-eboot.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
-wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/vita-nzp-vpk.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
 
 # FTEQW
@@ -224,7 +224,7 @@ cd vita-assembly
 mkdir assets
 unzip -q ../vita-nzp-assets.zip -d assets/
 unzip -q ../standard-nzp-qc.zip -d assets/data/nzp/nzp
-unzip -q ../vita-nzp-vpk.zip -d $PWD
+unzip -q ../psp2-nzp-vpk.zip -d $PWD
 echo $BUILD_STRING > assets/data/nzp/nzp/version.txt
 mv nzp.vpk assets/
 cd assets/
