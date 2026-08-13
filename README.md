@@ -64,11 +64,11 @@ Blubswillrule, Biodude, Cypress, Marty P.
 * BCDeshiG: Extensive Testing
 
 # Stars
-<a href="https://www.star-history.com/?repos=nzp-team%2Fnzportable%2Cnzp-team%2Fvril-engine%2Cnzp-team%2Fquakec%2Cnzp-team%2Fassets%2Cnzp-team%2Fnzp-team.github.io&type=date&legend=top-left">
+<a href="https://star-history.dera.page/#nzp-team/nzportable,nzp-team/vril-engine,nzp-team/quakec,nzp-team/assets,nzp-team/nzp-team.github.io&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nzp-team/nzportable,nzp-team/vril-engine,nzp-team/quakec,nzp-team/assets,nzp-team/nzp-team.github.io&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nzp-team/nzportable,nzp-team/vril-engine,nzp-team/quakec,nzp-team/assets,nzp-team/nzp-team.github.io&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=nzp-team/nzportable,nzp-team/vril-engine,nzp-team/quakec,nzp-team/assets,nzp-team/nzp-team.github.io&type=date&legend=top-left" />
  </picture>
 </a>
 
