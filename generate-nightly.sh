@@ -3,6 +3,11 @@
 # Whether to do a nightly
 PUSH_NIGHTLY="0"
 
+# Manual workflow runs should force a build even when no repository had a commit recently.
+if [ "$2" = "--force" ]; then
+    PUSH_NIGHTLY="1"
+fi
+
 # Store individual repo updates so we can add commit info
 # TODO: Actually display commit info, for now since this
 # is hacky we'll just do "PSP update" etc.
@@ -87,7 +92,7 @@ printf "* PSP: Extract the `nzportable` folder inside the .ZIP archive into \`PS
 printf "* Nintendo Switch: Extract the `nzportable` folder inside the .ZIP archive" >> changes.txt
 printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra memory," >> changes.txt
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
-printf "* PS VITA: Extract the nzp directory into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
+printf "* PS VITA: Extract \`nzp.zip\` into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
 printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
 printf "\n " >> changes.txt
@@ -230,6 +235,8 @@ mv nzportable.vpk assets/
 cd assets/
 mv data/nzp ./
 rm -rf data/
+zip -q -r nzp.zip nzp/
+rm -rf nzp/
 zip -q -r ../nzportable-vita.zip ./*
 cd ../
 mv nzportable-vita.zip ../out/

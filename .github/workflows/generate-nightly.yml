@@ -19,7 +19,7 @@ jobs:
         continue-on-error: false
         working-directory: ./
         run: |
-          ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }}
+          ./generate-nightly.sh ${{ secrets.GITHUB_TOKEN }} ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
       - name: Get Build Date
         id: date
         run: echo "::set-output name=date::$(cat release_version.txt)"
@@ -197,6 +197,26 @@ jobs:
           tag_name: nightly
           files: nzportable-${{ steps.archmap.outputs.archive_arch }}.flatpak
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-to-vitadb:
+    name: Deploy to VitaDB
+    if: github.ref == 'refs/heads/main' && github.repository_owner == 'nzp-team'
+    runs-on: ubuntu-latest
+    needs:
+      - Generate-Nightly
+    steps:
+      - name: Install WGET, cURL
+        run: |
+          sudo apt update && sudo apt install -y wget curl
+      - name: Upload to VitaDB
+        env:
+          VITADB_API_KEY: ${{ secrets.VITADB_API_KEY }}
+        run: |
+          curl --fail --silent --show-error \
+            -X POST \
+            -F "secret=${VITADB_API_KEY}" \
+            -F "zip_url=https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip" \
+            https://www.rinnegatamante.eu/vitadb/publish_nightly.php
 
   deploy-to-itch:
     name: Deploy to itch.io
