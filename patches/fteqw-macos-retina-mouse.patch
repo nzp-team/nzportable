@@ -1,0 +1,56 @@
+diff --git a/engine/client/in_sdl.c b/engine/client/in_sdl.c
+index 0b04c4088..099056434 100644
+--- a/engine/client/in_sdl.c
++++ b/engine/client/in_sdl.c
+@@ -1193,6 +1193,23 @@ int INS_MouseID(uint32_t mid)
+ 	return -1;
+ }
+ 
++static void INS_ScaleMouseToDrawable(float *x, float *y)
++{
++#if SDL_MAJOR_VERSION >= 2
++	int window_width, window_height;
++
++	if (!sdlwindow || !vid.pixelwidth || !vid.pixelheight)
++		return;
++
++	SDL_GetWindowSize(sdlwindow, &window_width, &window_height);
++	if (window_width > 0 && window_height > 0)
++	{
++		*x = (*x * vid.pixelwidth) / window_width;
++		*y = (*y * vid.pixelheight) / window_height;
++	}
++#endif
++}
++
+ 
+ void Sys_SendKeyEvents(void)
+ {
+@@ -1378,7 +1395,12 @@ void Sys_SendKeyEvents(void)
+ 			which = INS_MouseID(event.motion.which);
+ #endif
+ 			if (!mouseactive)
+-				IN_MouseMove(which, true, event.motion.x, event.motion.y, 0, 0);
++			{
++				float x = event.motion.x;
++				float y = event.motion.y;
++				INS_ScaleMouseToDrawable(&x, &y);
++				IN_MouseMove(which, true, x, y, 0, 0);
++			}
+ 			else
+ 				IN_MouseMove(which, false, event.motion.xrel, event.motion.yrel, 0, 0);
+ 			break;
+@@ -1418,6 +1440,13 @@ void Sys_SendKeyEvents(void)
+ 				break;	//ignore legacy touch events. SDL_FINGER* events above will handle it (for multitouch)
+ #endif
+ 			which = INS_MouseID(event.button.which);
++			if (!mouseactive)
++			{
++				float x = event.button.x;
++				float y = event.button.y;
++				INS_ScaleMouseToDrawable(&x, &y);
++				IN_MouseMove(which, true, x, y, 0, 0);
++			}
+ 			//Hmm. SDL allows for 255 buttons, but only defines 5...
+ 			if (event.button.button > sizeof(tbl_sdltoquakemouse)/sizeof(tbl_sdltoquakemouse[0]))
+ 				event.button.button = sizeof(tbl_sdltoquakemouse)/sizeof(tbl_sdltoquakemouse[0]);
