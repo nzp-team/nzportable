@@ -146,57 +146,6 @@ jobs:
             ./out/nzportable-win32.zip
             ./out/nzportable-win64.zip
             ./out/build-version.txt
-  
-  build-flatpak:
-    name: Build Flatpak
-    strategy:
-      fail-fast: false
-      matrix:
-        variant:
-          - arch: x86_64
-            runner: ubuntu-24.04
-          - arch: aarch64
-            runner: ubuntu-24.04-arm
-    runs-on: ${{ matrix.variant.runner }}
-    container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
-      options: --privileged
-    needs: Generate-Nightly
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Map CPU architecture to engine ZIP name
-        id: archmap
-        run: |
-          case "${{ matrix.variant.arch }}" in
-            x86_64)
-              echo "archive_arch=linux64" >> $GITHUB_OUTPUT
-              ;;
-            aarch64)
-              echo "archive_arch=arm64" >> $GITHUB_OUTPUT
-              ;;
-          esac
-      - name: Download Flatpak dependencies + add Flathub remote
-        run: |
-          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08 || true
-      - name: Run generate-flatpak.sh
-        run: |
-          ./generate-flatpak.sh "${{ matrix.variant.arch }}"
-      - name: Build Flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
-        with:
-          bundle: nzportable-${{ steps.archmap.outputs.archive_arch }}.flatpak
-          manifest-path: gay.nzp.nzportable.json
-          arch: ${{ matrix.variant.arch }}
-          cache-key: flatpak-builder-${{ github.sha }}-${{ matrix.variant.arch }}
-          verbose: true
-      - name: Upload Flatpak to release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: nightly
-          files: nzportable-${{ steps.archmap.outputs.archive_arch }}.flatpak
-          token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-to-vitadb:
     name: Deploy to VitaDB

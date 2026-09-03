@@ -12,7 +12,6 @@ fi
 # TODO: Actually display commit info, for now since this
 # is hacky we'll just do "PSP update" etc.
 ASSET_UPDATE="0"
-FTEQW_UPDATE="0"
 QUAKC_UPDATE="0"
 DQUAK_UPDATE="0"
 
@@ -27,7 +26,6 @@ BUILD_STRING="2.0.0-indev+$(date +'%Y%m%d%H%M%S')"
 
 # Epoch times for every repo we care about
 ASSET_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/assets/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
-FTEQW_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/fteqw/branches/master | jq '.commit.commit.author.date'| tr -d '"'))
 QUAKC_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/quakec/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://api.github.com/repos/nzp-team/vril-engine/branches/main | jq '.commit.commit.author.date'| tr -d '"'))
 
@@ -35,11 +33,6 @@ DQUAK_REPO_TIME=$(date "+%s" -d $(curl -s -H "Authorization: token $1" https://a
 if [ "$ASSET_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
     PUSH_NIGHTLY="1"
     ASSET_UPDATE="1"
-fi
-
-if [ "$FTEQW_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
-    PUSH_NIGHTLY="1"
-    FTEQW_UPDATE="1"
 fi
 
 if [ "$QUAKC_REPO_TIME" -ge "$YESTERDAY_TIME" ]; then
@@ -72,10 +65,6 @@ if [ "$ASSET_UPDATE" -eq "1" ]; then
     printf "* Game Assets\n" >> changes.txt
 fi
 
-if [ "$FTEQW_UPDATE" -eq "1" ]; then
-    printf "* FTEQW (Windows/Linux/Web Engine)\n" >> changes.txt
-fi
-
 if [ "$QUAKC_UPDATE" -eq "1" ]; then
     printf "* QuakeC (Game Code)\n" >> changes.txt
 fi
@@ -85,6 +74,7 @@ if [ "$DQUAK_UPDATE" -eq "1" ]; then
 fi
 
 printf "\n " >> changes.txt
+printf "\n **If you are looking for Co-Op enabled FTEQW builds, see: https://github.com/nzp-team/fteqw/releases/tag/legacy\n" >> changes.txt
 printf "Installation Instructions:\n" >> changes.txt
 printf "* PC: Extract .ZIP archive into a folder of your choice. Linux users may need" >> changes.txt
 printf " to mark as executable with \`chmod\`. Linux users may also choose to use the Flatpak.\n" >> changes.txt
@@ -116,17 +106,14 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
-
-# FTEQW
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux32.zip
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux64.zip
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_arm64.zip
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-linux_armhf.zip
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win32.zip
-wget -nc https://github.com/nzp-team/fteqw/releases/download/bleeding-edge/pc-nzp-win64.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86-nzp-sdl.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86_64-nzp-sdl.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-arm64-nzp-sdl.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-armhf-nzp-sdl.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/windows-x86-nzp-sdl.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/windows-x86_64-nzp-sdl.zip
 
 # QuakeC
-wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/fte-nzp-qc.zip
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Directory setup
@@ -140,49 +127,51 @@ echo $BUILD_STRING > release_version.txt
 cd pc-assembly
 mkdir assets
 unzip -q ../pc-nzp-assets.zip -d assets/
-unzip -q ../fte-nzp-qc.zip -d assets/nzp/
-unzip -q ../pc-nzp-linux32.zip -d $PWD
-unzip -q ../pc-nzp-linux64.zip -d $PWD
-unzip -q ../pc-nzp-linux_arm64.zip -d $PWD
-unzip -q ../pc-nzp-linux_armhf.zip -d $PWD
-unzip -q ../pc-nzp-win32.zip -d $PWD
-unzip -q ../pc-nzp-win64.zip -d $PWD
+unzip -q ../standard-nzp-qc.zip -d assets/nzp/
+unzip -q ../linux-x86-nzp-sdl.zip -d $PWD
+mv nzportable nzportable32
+unzip -q ../linux-x86_64-nzp-sdl.zip -d $PWD
+mv nzportable nzportable64
+unzip -q ../linux-arm64-nzp-sdl.zip -d $PWD
+mv nzportable nzportablearm64
+unzip -q ../linux-armhf-nzp-sdl.zip -d $PWD
+mv nzportable nzportablearmhf
 echo $BUILD_STRING > assets/nzp/version.txt
 cp assets/nzp/version.txt ../out/build-version.txt
-mv nzportable32-sdl assets/
+mv nzportable32 assets/
 cd assets
 zip -q -r ../nzportable-linux32.zip ./*
-rm nzportable32-sdl
+rm nzportable32
 cd ../
 mv nzportable-linux32.zip ../out/
-mv nzportable64-sdl assets/
+mv nzportable64 assets/
 cd assets
 zip -q -r ../nzportable-linux64.zip ./*
-rm nzportable64-sdl
+rm nzportable64
 cd ../
 mv nzportable-linux64.zip ../out/
-mv nzportablearm64-sdl assets/
+mv nzportablearm64 assets/
 cd assets
 zip -q -r ../nzportable-linuxarm64.zip ./*
-rm nzportablearm64-sdl
+rm nzportablearm64
 cd ../
 mv nzportable-linuxarm64.zip ../out/
-mv nzportablearmhf-sdl assets/
+mv nzportablearmhf assets/
 cd assets
 zip -q -r ../nzportable-linuxarmhf.zip ./*
-rm nzportablearmhf-sdl
+rm nzportablearmhf
 cd ../
 mv nzportable-linuxarmhf.zip ../out/
-mv nzportable-sdl.exe assets/
+unzip -q ../windows-x86-nzp-sdl.zip -d assets/
 cd assets
 zip -q -r ../nzportable-win32.zip ./*
-rm nzportable-sdl.exe
+rm nzportable.exe SDL2.dll SDL2_mixer.dll
 cd ../
 mv nzportable-win32.zip ../out/
-mv nzportable-sdl64.exe assets/
+unzip -q ../windows-x86_64-nzp-sdl.zip -d assets/
 cd assets
 zip -q -r ../nzportable-win64.zip ./*
-rm nzportable-sdl64.exe
+rm nzportable.exe SDL2.dll SDL2_mixer.dll
 cd ../
 mv nzportable-win64.zip ../out/
 cd ../
