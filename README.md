@@ -1,13 +1,12 @@
 # Nazi Zombies: Portable
 
 # About
-This is the main/hub repository for NZ:P, a Call of Duty: Zombies "de-make" powered by various enhanced forks of the Quake engine, in development since 2009. This hub repository serves as a place to host nightly builds as well as a means of bug reporting on a game-wide (non-component) scale. See [the breakdown](#github-organzation-breakdown) for source code and other components.
+This is the main/hub repository for NZ:P, a Call of Duty: Zombies "de-make" powered by various enhanced forks of the Quake engine, in development since 2009. This hub repository serves as a place to host nightly builds as well as a means of bug reporting on a game-wide (non-component) scale. See [the breakdown](#github-organization-breakdown) for source code and other components.
 
 The game itself is feature-equivalent with Call of Duty: World at War on a generic level. Gameplay components are implemented with minor parity differences. Most World at War maps and their unique features are not yet represented. Various small additions and changes from Call of Duty: Black Ops are present as a means of gameplay smoothing, but not on a wide scale. NZ:P is, first and foremost, a Call of Duty: World at War remake.
 
 # Supported Platforms
 * Linux (x86, x86_64, armhf, arm64)
-* macOS†
 * Nintendo Switch
 * Nintendo 3DS
 * PlayStation Portable (both "PHAT" (PSP-1000) and "SLIM" (PSP-2000 and higher))
@@ -16,11 +15,9 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * Windows (x86, x86_64)
 * TI NSPIRE (CX II)
 
-# GitHub Organzation Breakdown
+# GitHub Organization Breakdown
 * [assets](https://github.com/nzp-team/assets): Game GFX, Sound, etc. data.
-* [vril-engine](https://github.com/nzp-team/vril-engine): The NZ:P engine for PlayStation Portable and Nintendo 3DS.
-* [fteqw](https://github.com/nzp-team/fteqw): The NZ:P Windows, Mac, Linux, and Web engine. Powered by Spike's FTEQW, with minimal changes.
-* [quakespasm](https://github.com/nzp-team/quakespasm): The NZ:P Nintendo Switch and PS VITA engine, forked from QuakespasmNX.
+* [vril-engine](https://github.com/nzp-team/vril-engine): The NZ:P engine.
 * [quakec](https://github.com/nzp-team/quakec): The game-side code for things like weapons and Perk machines.
 * [tools](https://github.com/nzp-team/tools): Misc. development tools.
 * [toolbox](https://github.com/nzp-team/toolbox): AiO Development suite for map makers and contributors.
@@ -71,5 +68,3 @@ Blubswillrule, Biodude, Cypress, Marty P.
    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=nzp-team/nzportable%2Cnzp-team/vril-engine%2Cnzp-team/quakec%2Cnzp-team/assets%2Cnzp-team/nzp-team.github.io&type=date&legend=top-left" />
  </picture>
 </a>
-
-†macOS 10.10 Yosemite is a supported platform via the FTEQW engine. This means NZ:P is compatible with macOS, however, cross-compiling FTEQW for macOS via docker or similar has proved a challenge, and as such pre-builds with NZ:Ps changes are not yet available.
