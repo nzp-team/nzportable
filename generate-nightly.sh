@@ -165,13 +165,11 @@ mv nzportable-linuxarmhf.zip ../out/
 unzip -q ../windows-x86-nzp-sdl.zip -d assets/
 cd assets
 zip -q -r ../nzportable-win32.zip ./*
-rm nzportable.exe SDL2.dll SDL2_mixer.dll
 cd ../
 mv nzportable-win32.zip ../out/
 unzip -q ../windows-x86_64-nzp-sdl.zip -d assets/
 cd assets
 zip -q -r ../nzportable-win64.zip ./*
-rm nzportable.exe SDL2.dll SDL2_mixer.dll
 cd ../
 mv nzportable-win64.zip ../out/
 cd ../
