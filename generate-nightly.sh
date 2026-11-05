@@ -83,6 +83,7 @@ printf "* Nintendo Switch: Extract the `nzportable` folder inside the .ZIP archi
 printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra memory," >> changes.txt
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
 printf "* PS VITA: Extract \`nzp.zip\` into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
+printf "* PS4: Install \`nzportable.pkg\` and copy game data to \`/data/nzportable/\`.\n" >> changes.txt
 printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
 printf "\n " >> changes.txt
@@ -97,6 +98,7 @@ wget -nc https://github.com/nzp-team/assets/releases/download/newest/nx-nzp-asse
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/pc-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/psp-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/vita-nzp-assets.zip
+wget -nc https://github.com/nzp-team/assets/releases/download/newest/ps4-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/3ds-nzp-assets.zip
 wget -nc https://github.com/nzp-team/assets/releases/download/newest/nspire-nzp-assets.zip
 
@@ -105,6 +107,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ctr-nzp-3dsx.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps4-nzp-pkg.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86-nzp-sdl.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86_64-nzp-sdl.zip
@@ -117,7 +120,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -227,6 +230,22 @@ rm -rf nzp/
 zip -q -r ../nzportable-vita.zip ./*
 cd ../
 mv nzportable-vita.zip ../out/
+cd ../
+
+#
+# Assemble PS4 Build
+#
+cd ps4-assembly
+mkdir -p assets/data
+unzip -q ../ps4-nzp-assets.zip -d assets/data/ || exit 1
+unzip -q ../standard-nzp-qc.zip -d assets/data/nzportable/nzp/ || exit 1
+unzip -q ../ps4-nzp-pkg.zip -d assets/ || exit 1
+test -s assets/nzportable.pkg && test -s assets/data/nzportable/nzp/progs.dat || exit 1
+echo "$BUILD_STRING" > assets/data/nzportable/nzp/version.txt
+cd assets/
+zip -q -r ../nzportable-ps4.zip ./* || exit 1
+cd ../
+mv nzportable-ps4.zip ../out/
 cd ../
 
 #
