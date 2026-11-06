@@ -10,6 +10,7 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * Nintendo Switch
 * Nintendo 3DS
 * PlayStation Portable (both "PHAT" (PSP-1000) and "SLIM" (PSP-2000 and higher))
+* PlayStation 2
 * PlayStation 4
 * PlayStation VITA
 * [WebGL](https://nzp.gay)
