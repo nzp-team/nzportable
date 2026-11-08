@@ -50,6 +50,7 @@ jobs:
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
             ./out/nzportable-ps4.zip
+            ./out/nzportable-xbox.zip
             ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
@@ -75,6 +76,7 @@ jobs:
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
             ./out/nzportable-ps4.zip
+            ./out/nzportable-xbox.zip
             ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
@@ -100,6 +102,7 @@ jobs:
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
             ./out/nzportable-ps4.zip
+            ./out/nzportable-xbox.zip
             ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
@@ -125,6 +128,7 @@ jobs:
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
             ./out/nzportable-ps4.zip
+            ./out/nzportable-xbox.zip
             ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
@@ -150,6 +154,7 @@ jobs:
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
             ./out/nzportable-ps4.zip
+            ./out/nzportable-xbox.zip
             ./out/nzportable-psp.zip
             ./out/nzportable-switch.zip
             ./out/nzportable-vita.zip
@@ -198,6 +203,7 @@ jobs:
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarmhf.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-ps2.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-ps4.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-xbox.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-psp.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-switch.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-vita.zip
@@ -265,6 +271,15 @@ jobs:
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: ps4
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - Xbox
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-xbox.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: xbox
           buildNumberFile: build-version.txt
       - name: Upload to itch.io - PlayStation Portable
         uses: KikimoraGames/itch-publish@v0.0.3

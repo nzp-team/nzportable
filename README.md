@@ -15,6 +15,7 @@ The game itself is feature-equivalent with Call of Duty: World at War on a gener
 * PlayStation VITA
 * [WebGL](https://nzp.gay)
 * Windows (x86, x86_64)
+* Xbox (2001)
 * TI NSPIRE (CX II)
 
 # GitHub Organization Breakdown

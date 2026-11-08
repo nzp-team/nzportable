@@ -84,6 +84,7 @@ printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra mem
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
 printf "* PS VITA: Extract \`nzp.zip\` into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
 printf "* PS2: Place \`nzportable.elf\` on a USB, Memory Card, HDD. Copy game data to \`/APPS/NZPORTABLE/\` in the same media.\n" >> changes.txt
+printf "* Xbox: Extract the \`nzportable\` folder into \`<drive>/Games/\` and launch \`default.xbe\`.\n" >> changes.txt
 printf "* PS4: Install \`nzportable.pkg\` and copy game data to \`/data/nzportable/\`.\n" >> changes.txt
 printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
@@ -109,6 +110,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps4-nzp-pkg.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/xbox-nzp-xbe.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps2-nzp-elf.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86-nzp-sdl.zip
@@ -122,7 +124,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps2-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps2-assembly,xbox-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -248,6 +250,22 @@ cd assets/
 zip -q -r ../nzportable-ps4.zip ./* || exit 1
 cd ../
 mv nzportable-ps4.zip ../out/
+cd ../
+
+#
+# Assemble Xbox Build
+#
+cd xbox-assembly
+mkdir assets
+unzip -q ../ps4-nzp-assets.zip -d assets/ || exit 1
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp/ || exit 1
+unzip -q ../xbox-nzp-xbe.zip -d assets/nzportable/ || exit 1
+test -s assets/nzportable/default.xbe && test -s assets/nzportable/nzp/progs.dat || exit 1
+echo "$BUILD_STRING" > assets/nzportable/nzp/version.txt
+cd assets/
+zip -q -r ../nzportable-xbox.zip ./* || exit 1
+cd ../
+mv nzportable-xbox.zip ../out/
 cd ../
 
 #
