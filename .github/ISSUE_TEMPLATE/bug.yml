@@ -38,6 +38,8 @@ body:
           - Linux (arm64)
           - Linux (Flatpak, x86_64)
           - Linux (Flatpak, arm64)
+          - Xbox (2001)
+          - Xbox 360
           - WASM (Chromium-based browser)
           - WASM (Firefox-based browser)
           - WASM (WebKit-based browser)

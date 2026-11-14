@@ -111,6 +111,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps4-nzp-pkg.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/xbox-nzp-xbe.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/xbox360-nzp-elf.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps2-nzp-elf.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nx-nzp-nro.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/linux-x86-nzp-sdl.zip
@@ -124,7 +125,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps2-assembly,xbox-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps2-assembly,xbox-assembly,xbox360-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -266,6 +267,22 @@ cd assets/
 zip -q -r ../nzportable-xbox.zip ./* || exit 1
 cd ../
 mv nzportable-xbox.zip ../out/
+cd ../
+
+#
+# Assemble Xbox 360 Build
+#
+cd xbox360-assembly
+mkdir assets
+unzip -q ../ps4-nzp-assets.zip -d assets/ || exit 1
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp/ || exit 1
+unzip -q ../xbox360-nzp-elf.zip -d assets/ || exit 1
+test -s assets/xenon.elf && test -s assets/nzportable/nzp/progs.dat || exit 1
+echo "$BUILD_STRING" > assets/nzportable/nzp/version.txt
+cd assets/
+zip -q -r ../nzportable-xbox360.zip ./* || exit 1
+cd ../
+mv nzportable-xbox360.zip ../out/
 cd ../
 
 #
