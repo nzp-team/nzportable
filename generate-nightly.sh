@@ -79,15 +79,16 @@ printf "Installation Instructions:\n" >> changes.txt
 printf "* PC: Extract .ZIP archive into a folder of your choice. Linux users may need" >> changes.txt
 printf " to mark as executable with \`chmod\`. Linux users may also choose to use the Flatpak.\n" >> changes.txt
 printf "* PSP: Extract the `nzportable` folder inside the .ZIP archive into \`PSP/GAME/\`.\n" >> changes.txt
+printf "* PS VITA: Extract \`nzp.zip\` into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
+printf "* PS2: Place \`nzportable.elf\` on a USB, Memory Card, HDD. Copy game data to \`/APPS/NZPORTABLE/\` in the same media.\n" >> changes.txt
+printf "* PS3: Install \`nzportable.pkg\` and copy game data to \`/dev_hdd0/game/NZPT00001/USRDIR/\`.\n" >> changes.txt
+printf "* PS4: Install \`nzportable.pkg\` and copy game data to \`/data/nzportable/\`.\n" >> changes.txt
+printf "* Xbox: Extract the \`nzportable\` folder into \`<drive>/Games/\` and launch \`default.xbe\`.\n" >> changes.txt
+printf "* Xbox 360: Extract to root of USB drive and run with XeLL (Reloaded)." >> changes.txt
+printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* Nintendo Switch: Extract the `nzportable` folder inside the .ZIP archive" >> changes.txt
 printf " into \`/switch/\` and launch with Homebrew Launcher. Requires extra memory," >> changes.txt
 printf " so make sure to open HBLauncher by holding 'R' over an installed title!\n" >> changes.txt
-printf "* PS VITA: Extract \`nzp.zip\` into ux0:data/ and install \`nzportable.vpk\`.\n" >> changes.txt
-printf "* PS2: Place \`nzportable.elf\` on a USB, Memory Card, HDD. Copy game data to \`/APPS/NZPORTABLE/\` in the same media.\n" >> changes.txt
-printf "* Xbox: Extract the \`nzportable\` folder into \`<drive>/Games/\` and launch \`default.xbe\`.\n" >> changes.txt
-printf "* Xbox 360: Extract to root of USB drive and run with XeLL (Reloaded)." >> changes.txt
-printf "* PS4: Install \`nzportable.pkg\` and copy game data to \`/data/nzportable/\`.\n" >> changes.txt
-printf "* Nintendo 3DS: Extract the .ZIP archive into \`/3ds/\`.\n" >> changes.txt
 printf "* TI NSPIRE: Extract the .ZIP archive and sync contents to \`My Documents\`. \n" >> changes.txt
 printf "\n " >> changes.txt
 printf "\nYou can also play the WebGL version at https://nzp.gay/" >> changes.txt
@@ -111,6 +112,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/nspire-nzp-tns.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/psp2-nzp-vpk.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps4-nzp-pkg.zip
+wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps3-nzp-pkg.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/xbox-nzp-xbe.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/xbox360-nzp-elf.zip
 wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge/ps2-nzp-elf.zip
@@ -126,7 +128,7 @@ wget -nc https://github.com/nzp-team/vril-engine/releases/download/bleeding-edge
 wget -nc https://github.com/nzp-team/quakec/releases/download/bleeding-edge/standard-nzp-qc.zip
 
 # Directory setup
-mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps2-assembly,xbox-assembly,xbox360-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
+mkdir -p {pc-assembly,psp-assembly,vita-assembly,ps4-assembly,ps3-assembly,ps2-assembly,xbox-assembly,xbox360-assembly,nx-assembly,3ds-assembly,nspire-assembly,out}
 echo $BUILD_STRING > release_version.txt
 
 #
@@ -252,6 +254,22 @@ cd assets/
 zip -q -r ../nzportable-ps4.zip ./* || exit 1
 cd ../
 mv nzportable-ps4.zip ../out/
+cd ../
+
+#
+# Assemble PS3 Build
+#
+cd ps3-assembly
+mkdir assets
+unzip -q ../ps4-nzp-assets.zip -d assets/ || exit 1
+unzip -q ../standard-nzp-qc.zip -d assets/nzportable/nzp/ || exit 1
+unzip -q ../ps3-nzp-pkg.zip -d assets/ || exit 1
+test -s assets/nzportable.pkg && test -s assets/nzportable/nzp/progs.dat || exit 1
+echo "$BUILD_STRING" > assets/nzportable/nzp/version.txt
+cd assets/
+zip -q -r ../nzportable-ps3.zip ./* || exit 1
+cd ../
+mv nzportable-ps3.zip ../out/
 cd ../
 
 #

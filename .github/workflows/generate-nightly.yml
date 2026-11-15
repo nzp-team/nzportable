@@ -49,6 +49,7 @@ jobs:
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
+            ./out/nzportable-ps3.zip
             ./out/nzportable-ps4.zip
             ./out/nzportable-xbox.zip
             ./out/nzportable-xbox360.zip
@@ -76,6 +77,7 @@ jobs:
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
+            ./out/nzportable-ps3.zip
             ./out/nzportable-ps4.zip
             ./out/nzportable-xbox.zip
             ./out/nzportable-xbox360.zip
@@ -103,6 +105,7 @@ jobs:
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
+            ./out/nzportable-ps3.zip
             ./out/nzportable-ps4.zip
             ./out/nzportable-xbox.zip
             ./out/nzportable-xbox360.zip
@@ -130,6 +133,7 @@ jobs:
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
+            ./out/nzportable-ps3.zip
             ./out/nzportable-ps4.zip
             ./out/nzportable-xbox.zip
             ./out/nzportable-xbox360.zip
@@ -157,6 +161,7 @@ jobs:
             ./out/nzportable-linuxarm64.zip
             ./out/nzportable-linuxarmhf.zip
             ./out/nzportable-ps2.zip
+            ./out/nzportable-ps3.zip
             ./out/nzportable-ps4.zip
             ./out/nzportable-xbox.zip
             ./out/nzportable-xbox360.zip
@@ -207,6 +212,7 @@ jobs:
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarm64.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-linuxarmhf.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-ps2.zip
+          wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-ps3.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-ps4.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-xbox.zip
           wget https://github.com/nzp-team/nzportable/releases/download/nightly/nzportable-xbox360.zip
@@ -268,6 +274,15 @@ jobs:
           itchUsername: nzp-team
           itchGameId: nazi-zombies-portable
           buildChannel: ps2
+          buildNumberFile: build-version.txt
+      - name: Upload to itch.io - PlayStation 3
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: nzportable-ps3.zip
+          itchUsername: nzp-team
+          itchGameId: nazi-zombies-portable
+          buildChannel: ps3
           buildNumberFile: build-version.txt
       - name: Upload to itch.io - PlayStation 4
         uses: KikimoraGames/itch-publish@v0.0.3
